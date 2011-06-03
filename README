@@ -1,0 +1,27 @@
+This is a simple blog app that was created in the spirit of the 'WO in
+15 minutes' movie created by Jonathan ‘Wolf’ Rentzsch.
+
+This example application has been designed to showcase ERModernLook
+development as well as demonstrate some lesser known page level and
+property level components available to the D2W developer in ERModernLook
+and the broader ERD2W framework. I hope it will eventually show the
+progression of building up and customizing a D2W application.
+
+It depends on ERModernDirectToWeb modifications that are currently
+located in my Wonder fork but may end up in Wonder proper.
+
+The application also depends on a FrontBase database. This may change in the
+future and/or you may want to change your properties file to point to a
+database from a different vendor.
+
+The database you create should be named 'simpleblog' and will start up
+with a user with login credentials:
+
+username: test password: test
+
+You will need to change the build.properties file to point to your
+installation of Wonder/WebObjects frameworks. It is currently:
+
+wolips.properties=/Developer/WebObjects/Versions/WebObjects543/wolips.
+543.properties
+
