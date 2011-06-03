@@ -1,0 +1,30 @@
+{
+    attributes = (
+        {columnName = body; name = body; prototypeName = varcharLarge; }, 
+        {allowsNull = N; name = id; prototypeName = id; }, 
+        {allowsNull = N; columnName = personID; name = personID; prototypeName = id; }, 
+        {
+            columnName = timestampCreation; 
+            name = timestampCreation; 
+            prototypeName = dateTime; 
+        }, 
+        {columnName = title; name = title; prototypeName = varchar255; }
+    ); 
+    attributesUsedForLocking = (body, id, personID, timestampCreation, title); 
+    className = "com.wowodc.model.BlogEntry"; 
+    classProperties = (body, person, timestampCreation, title); 
+    externalName = BlogEntry; 
+    fetchSpecificationDictionary = {}; 
+    name = BlogEntry; 
+    primaryKeyAttributes = (id); 
+    relationships = (
+        {
+            destination = Person; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = id; sourceAttribute = personID; }); 
+            name = person; 
+        }
+    ); 
+}

@@ -1,0 +1,61 @@
+{
+    attributes = (
+        {
+            allowsNull = Y; 
+            columnName = email; 
+            name = email; 
+            prototypeName = varchar255; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = firstName; 
+            name = firstName; 
+            prototypeName = varchar255; 
+        }, 
+        {allowsNull = N; name = id; prototypeName = id; }, 
+        {
+            allowsNull = Y; 
+            columnName = lastName; 
+            name = lastName; 
+            prototypeName = varchar255; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = login; 
+            name = login; 
+            prototypeName = varchar255; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = password; 
+            name = password; 
+            prototypeName = varchar255; 
+        }
+    ); 
+    attributesUsedForLocking = (email, firstName, id, lastName, login, password); 
+    className = "com.wowodc.model.Person"; 
+    classProperties = (blogEntries, email, firstName, lastName, login, password, roles); 
+    externalName = Person; 
+    fetchSpecificationDictionary = {}; 
+    name = Person; 
+    primaryKeyAttributes = (id); 
+    relationships = (
+        {
+            destination = BlogEntry; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = personID; sourceAttribute = id; }); 
+            name = blogEntries; 
+        }, 
+        {definition = "xPersonRoles.role"; name = roles; }, 
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = XPersonRole; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = personId; sourceAttribute = id; }); 
+            name = xPersonRoles; 
+            propagatesPrimaryKey = Y; 
+        }
+    ); 
+}

@@ -1,0 +1,29 @@
+{
+    attributes = (
+        {allowsNull = N; name = id; prototypeName = id; }, 
+        {
+            columnName = roleDescription; 
+            name = roleDescription; 
+            prototypeName = varchar255; 
+        }
+    ); 
+    attributesUsedForLocking = (id, roleDescription); 
+    className = "com.wowodc.model.Role"; 
+    classProperties = (persons, roleDescription); 
+    externalName = Role; 
+    fetchSpecificationDictionary = {}; 
+    name = Role; 
+    primaryKeyAttributes = (id); 
+    relationships = (
+        {definition = "xPersonRoles.person"; name = persons; }, 
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = XPersonRole; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = roleId; sourceAttribute = id; }); 
+            name = xPersonRoles; 
+            propagatesPrimaryKey = Y; 
+        }
+    ); 
+}

@@ -1,0 +1,45 @@
+(
+	{
+		name = Root;
+		children = ("Blog","CreateBlog");
+	},
+	{
+		name = "Blog";
+		action = "session.navController.listBlogAction";
+		children = ("NormalList","GroupedList","Tables");
+	},
+	{
+		name = NormalList;
+		children = ("Normal","XML");
+		action = "session.navController.listBlogAction";
+	},	
+	{
+		name = Normal;
+		action = "session.navController.listBlogAction";
+	},
+	{
+		name = XML;
+		action = "session.navController.listXMLBlogAction";
+	},
+	{
+		name = GroupedList;
+		children = ("NormalGroup","CSVGroup");
+		action = "session.navController.listGroupedBlogAction";
+	},
+	{
+		name = NormalGroup;
+		action = "session.navController.listGroupedBlogAction";
+	},
+	{
+		name = CSVGroup;
+		action = "session.navController.listGroupedCSVBlogAction";
+	},
+	{
+		name = Tables;
+		action = "session.navController.listTableBlogAction";
+	},
+	{
+		name = CreateBlog;
+		action = "session.navController.createBlogAction";
+	}
+)

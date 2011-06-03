@@ -1,0 +1,9 @@
+{
+  "Nav.Blog" = "Blog";
+  "Nav.ListBlog" = "List Blog Entries";
+  "Nav.CreateBlog" = "Create Blog Entry";
+  "Nav.Admin" = "Admin";
+  
+  "ERD2W.advancedFindButtonLabel" = "Advanced...";
+  
+}
