@@ -3,6 +3,8 @@
     adaptorName = JDBC; 
     connectionDictionary = {URL = "jdbc:FrontBase://127.0.0.1/DatabaseName"; }; 
     entities = (
+        {className = "com.wowodc.model.BlogCategory"; name = BlogCategory; }, 
+        {className = EOGenericRecord; name = BlogCategoryEntry; }, 
         {className = "com.wowodc.model.BlogEntry"; name = BlogEntry; }, 
         {className = "com.wowodc.model.Person"; name = Person; }, 
         {className = "com.wowodc.model.Role"; name = Role; }, 

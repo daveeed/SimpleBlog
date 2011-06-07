@@ -13,5 +13,7 @@ public class BlogEntry extends com.wowodc.model.generated._BlogEntry {
     super.init(ec);
     setTimestampCreation(new NSTimestamp());
     setPersonRelationship(Person.currentUser(ec));
+    setLastModifed(new NSTimestamp());
   }
+ 
 }

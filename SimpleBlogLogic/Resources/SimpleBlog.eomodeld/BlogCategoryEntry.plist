@@ -1,0 +1,40 @@
+{
+    attributes = (
+        {
+            allowsNull = N; 
+            columnName = blogCategoryId; 
+            name = blogCategoryId; 
+            prototypeName = id; 
+        }, 
+        {
+            allowsNull = N; 
+            columnName = blogEntryId; 
+            name = blogEntryId; 
+            prototypeName = id; 
+        }
+    ); 
+    attributesUsedForLocking = (blogCategoryId, blogEntryId); 
+    className = EOGenericRecord; 
+    externalName = BlogCategoryEntry; 
+    fetchSpecificationDictionary = {}; 
+    name = BlogCategoryEntry; 
+    primaryKeyAttributes = (blogCategoryId, blogEntryId); 
+    relationships = (
+        {
+            destination = BlogCategory; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = id; sourceAttribute = blogCategoryId; }); 
+            name = blogCategory; 
+        }, 
+        {
+            destination = BlogEntry; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = id; sourceAttribute = blogEntryId; }); 
+            name = blogEntry; 
+        }
+    ); 
+}

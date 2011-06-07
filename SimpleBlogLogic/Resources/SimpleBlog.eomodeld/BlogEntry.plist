@@ -2,6 +2,7 @@
     attributes = (
         {columnName = body; name = body; prototypeName = varcharLarge; }, 
         {allowsNull = N; name = id; prototypeName = id; }, 
+        {columnName = lastModifed; name = lastModifed; prototypeName = dateTime; }, 
         {allowsNull = N; columnName = personID; name = personID; prototypeName = id; }, 
         {
             columnName = timestampCreation; 
@@ -10,14 +11,24 @@
         }, 
         {columnName = title; name = title; prototypeName = varchar255; }
     ); 
-    attributesUsedForLocking = (body, id, personID, timestampCreation, title); 
+    attributesUsedForLocking = (body, id, lastModifed, personID, timestampCreation, title); 
     className = "com.wowodc.model.BlogEntry"; 
-    classProperties = (body, person, timestampCreation, title); 
+    classProperties = (body, categories, lastModifed, person, timestampCreation, title); 
     externalName = BlogEntry; 
     fetchSpecificationDictionary = {}; 
     name = BlogEntry; 
     primaryKeyAttributes = (id); 
     relationships = (
+        {
+            deleteRule = EODeleteRuleCascade; 
+            destination = BlogCategoryEntry; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = blogEntryId; sourceAttribute = id; }); 
+            name = blogCategoryEntries; 
+            propagatesPrimaryKey = Y; 
+        }, 
+        {definition = "blogCategoryEntries.blogCategory"; name = categories; }, 
         {
             destination = Person; 
             isMandatory = Y; 
