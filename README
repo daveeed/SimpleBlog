@@ -5,7 +5,11 @@ This example application has been designed to showcase ERModernLook
 development as well as demonstrate some lesser known page level and
 property level components available to the D2W developer in ERModernLook
 and the broader ERD2W framework. I hope it will eventually show the
-progression of building up and customizing a D2W application.
+progression of building up and customizing a D2W application. Emphasis will
+be on building up the administrative interface.
+
+ERRest integration is now being added to show how it might be used
+to create a front-end with several desirable features such as nice URLs.
 
 It depends on ERModernDirectToWeb modifications that are currently
 located in my Wonder fork but may end up in Wonder proper.
