@@ -23,5 +23,6 @@
 	<classpathentry kind="con" path="WOFramework/Ajax"/>
 	<classpathentry kind="con" path="WOFramework/WOLips"/>
 	<classpathentry kind="con" path="WOFramework/SimpleBlogLogic"/>
+	<classpathentry kind="con" path="WOFramework/ERRest"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
