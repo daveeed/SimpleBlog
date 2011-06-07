@@ -17,16 +17,20 @@ public abstract class _BlogEntry extends  ERXGenericRecord {
 
   // Attribute Keys
   public static final ERXKey<String> BODY = new ERXKey<String>("body");
+  public static final ERXKey<NSTimestamp> LAST_MODIFED = new ERXKey<NSTimestamp>("lastModifed");
   public static final ERXKey<NSTimestamp> TIMESTAMP_CREATION = new ERXKey<NSTimestamp>("timestampCreation");
   public static final ERXKey<String> TITLE = new ERXKey<String>("title");
   // Relationship Keys
+  public static final ERXKey<com.wowodc.model.BlogCategory> CATEGORIES = new ERXKey<com.wowodc.model.BlogCategory>("categories");
   public static final ERXKey<com.wowodc.model.Person> PERSON = new ERXKey<com.wowodc.model.Person>("person");
 
   // Attributes
   public static final String BODY_KEY = BODY.key();
+  public static final String LAST_MODIFED_KEY = LAST_MODIFED.key();
   public static final String TIMESTAMP_CREATION_KEY = TIMESTAMP_CREATION.key();
   public static final String TITLE_KEY = TITLE.key();
   // Relationships
+  public static final String CATEGORIES_KEY = CATEGORIES.key();
   public static final String PERSON_KEY = PERSON.key();
 
   private static Logger LOG = Logger.getLogger(_BlogEntry.class);
@@ -48,6 +52,17 @@ public abstract class _BlogEntry extends  ERXGenericRecord {
     	_BlogEntry.LOG.debug( "updating body from " + body() + " to " + value);
     }
     takeStoredValueForKey(value, _BlogEntry.BODY_KEY);
+  }
+
+  public NSTimestamp lastModifed() {
+    return (NSTimestamp) storedValueForKey(_BlogEntry.LAST_MODIFED_KEY);
+  }
+
+  public void setLastModifed(NSTimestamp value) {
+    if (_BlogEntry.LOG.isDebugEnabled()) {
+    	_BlogEntry.LOG.debug( "updating lastModifed from " + lastModifed() + " to " + value);
+    }
+    takeStoredValueForKey(value, _BlogEntry.LAST_MODIFED_KEY);
   }
 
   public NSTimestamp timestampCreation() {
@@ -97,13 +112,87 @@ public abstract class _BlogEntry extends  ERXGenericRecord {
     }
   }
   
+  public NSArray<com.wowodc.model.BlogCategory> categories() {
+    return (NSArray<com.wowodc.model.BlogCategory>)storedValueForKey(_BlogEntry.CATEGORIES_KEY);
+  }
+
+  public NSArray<com.wowodc.model.BlogCategory> categories(EOQualifier qualifier) {
+    return categories(qualifier, null);
+  }
+
+  public NSArray<com.wowodc.model.BlogCategory> categories(EOQualifier qualifier, NSArray<EOSortOrdering> sortOrderings) {
+    NSArray<com.wowodc.model.BlogCategory> results;
+      results = categories();
+      if (qualifier != null) {
+        results = (NSArray<com.wowodc.model.BlogCategory>)EOQualifier.filteredArrayWithQualifier(results, qualifier);
+      }
+      if (sortOrderings != null) {
+        results = (NSArray<com.wowodc.model.BlogCategory>)EOSortOrdering.sortedArrayUsingKeyOrderArray(results, sortOrderings);
+      }
+    return results;
+  }
+  
+  public void addToCategories(com.wowodc.model.BlogCategory object) {
+    includeObjectIntoPropertyWithKey(object, _BlogEntry.CATEGORIES_KEY);
+  }
+
+  public void removeFromCategories(com.wowodc.model.BlogCategory object) {
+    excludeObjectFromPropertyWithKey(object, _BlogEntry.CATEGORIES_KEY);
+  }
+
+  public void addToCategoriesRelationship(com.wowodc.model.BlogCategory object) {
+    if (_BlogEntry.LOG.isDebugEnabled()) {
+      _BlogEntry.LOG.debug("adding " + object + " to categories relationship");
+    }
+    if (er.extensions.eof.ERXGenericRecord.InverseRelationshipUpdater.updateInverseRelationships()) {
+    	addToCategories(object);
+    }
+    else {
+    	addObjectToBothSidesOfRelationshipWithKey(object, _BlogEntry.CATEGORIES_KEY);
+    }
+  }
+
+  public void removeFromCategoriesRelationship(com.wowodc.model.BlogCategory object) {
+    if (_BlogEntry.LOG.isDebugEnabled()) {
+      _BlogEntry.LOG.debug("removing " + object + " from categories relationship");
+    }
+    if (er.extensions.eof.ERXGenericRecord.InverseRelationshipUpdater.updateInverseRelationships()) {
+    	removeFromCategories(object);
+    }
+    else {
+    	removeObjectFromBothSidesOfRelationshipWithKey(object, _BlogEntry.CATEGORIES_KEY);
+    }
+  }
+
+  public com.wowodc.model.BlogCategory createCategoriesRelationship() {
+    EOClassDescription eoClassDesc = EOClassDescription.classDescriptionForEntityName( com.wowodc.model.BlogCategory.ENTITY_NAME );
+    EOEnterpriseObject eo = eoClassDesc.createInstanceWithEditingContext(editingContext(), null);
+    editingContext().insertObject(eo);
+    addObjectToBothSidesOfRelationshipWithKey(eo, _BlogEntry.CATEGORIES_KEY);
+    return (com.wowodc.model.BlogCategory) eo;
+  }
+
+  public void deleteCategoriesRelationship(com.wowodc.model.BlogCategory object) {
+    removeObjectFromBothSidesOfRelationshipWithKey(object, _BlogEntry.CATEGORIES_KEY);
+    editingContext().deleteObject(object);
+  }
+
+  public void deleteAllCategoriesRelationships() {
+    Enumeration<com.wowodc.model.BlogCategory> objects = categories().immutableClone().objectEnumerator();
+    while (objects.hasMoreElements()) {
+      deleteCategoriesRelationship(objects.nextElement());
+    }
+  }
+
 
   public static com.wowodc.model.BlogEntry createBlogEntry(EOEditingContext editingContext, String body
+, NSTimestamp lastModifed
 , NSTimestamp timestampCreation
 , String title
 , com.wowodc.model.Person person) {
     com.wowodc.model.BlogEntry eo = (com.wowodc.model.BlogEntry) EOUtilities.createAndInsertInstance(editingContext, _BlogEntry.ENTITY_NAME);    
 		eo.setBody(body);
+		eo.setLastModifed(lastModifed);
 		eo.setTimestampCreation(timestampCreation);
 		eo.setTitle(title);
     eo.setPersonRelationship(person);

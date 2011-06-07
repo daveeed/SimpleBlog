@@ -24,7 +24,7 @@ public class SimpleBlog1 extends ERXMigrationDatabase.Migration {
     ERXJDBCUtilities.executeUpdate(database.adaptorChannel(), "INSERT INTO Role (roleDescription,id) VALUES ('Admin',1)", true);
     ERXJDBCUtilities.executeUpdate(database.adaptorChannel(), "INSERT INTO Role (roleDescription,id) VALUES ('Normal',2)", true);
 
-    ERXJDBCUtilities.executeUpdate(database.adaptorChannel(), "insert into Person ( \"firstName\", \"lastName\", \"password\", \"login\", \"id\" ,\"email\") values ( 'Test', 'User', 'test', 'test',1,'dummy@test.com')", true);
+    ERXJDBCUtilities.executeUpdate(database.adaptorChannel(), "insert into Person (firstName, lastName, password, login, id , email) values ( 'Test', 'User', 'test', 'test',1,'dummy@test.com')", true);
 
   }
 
