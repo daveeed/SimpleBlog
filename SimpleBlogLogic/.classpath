@@ -13,6 +13,6 @@
 	<classpathentry kind="con" path="WOFramework/JavaWebObjects"/>
 	<classpathentry kind="con" path="WOFramework/JavaXML"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="WOFramework/FrontBasePlugIn"/>
+	<classpathentry kind="con" path="WOFramework/H2PlugIn"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

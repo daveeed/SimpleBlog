@@ -1,7 +1,6 @@
 {
     EOModelVersion = "2.1"; 
     adaptorName = JDBC; 
-    connectionDictionary = {URL = "jdbc:FrontBase://127.0.0.1/DatabaseName"; }; 
     entities = (
         {className = "com.wowodc.model.BlogCategory"; name = BlogCategory; }, 
         {className = EOGenericRecord; name = BlogCategoryEntry; }, 
@@ -10,16 +9,4 @@
         {className = "com.wowodc.model.Role"; name = Role; }, 
         {className = EOGenericRecord; name = XPersonRole; }
     ); 
-    userInfo = {
-        "_EntityModeler" = {
-            activeDatabaseConfigName = Default; 
-            databaseConfigs = {
-                Default = {
-                    adaptorName = JDBC; 
-                    connectionDictionary = {URL = "jdbc:FrontBase://127.0.0.1/DatabaseName"; }; 
-                    prototypeEntityName = EOJDBCFrontBasePrototypes; 
-                }; 
-            }; 
-        }; 
-    }; 
 }

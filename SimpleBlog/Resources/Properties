@@ -15,18 +15,26 @@ er.extensions.ERXEnterpriseObject.updateInverseRelationships=true
 # you have these settings in your WebObjects.properties or your Application properties
 # Note that you *should* include the ones that are empty to stomp over any settings
 # in the ERCoreBusinessLogic.eomodeld
-#dbConnectURLGLOBAL = <my jdbc url>
-#dbConnectUserGLOBAL = <my database user>
+dbConnectURLGLOBAL =
+dbConnectUserGLOBAL = 
 dbConnectDriverGLOBAL =
 #dbConnectPasswordGLOBAL = <my database password>
 dbConnectPluginGLOBAL =
 dbConnectJDBCInfoGLOBAL = 
 
 # FrontBase Connection Dictionary
-dbConnectUserGLOBAL=_system
-dbConnectPasswordGLOBAL=
-dbConnectURLGLOBAL=jdbc:FrontBase://localhost/simpleblog
-er.extensions.ERXSQLHelper$FrontBaseSQLHelper
+# To use a different database than FrontBase, add the appropriate plugin to the build path
+# and change the default connection dictionary to use the correct prototypes
+# and remove the H2 plugin from the build path and comment out the H2 related
+# properties below
+# dbConnectUserGLOBAL=_system
+# dbConnectPasswordGLOBAL=
+# dbConnectURLGLOBAL=jdbc:FrontBase://localhost/simpleblog
+# er.extensions.ERXSQLHelper$FrontBaseSQLHelper
+
+# H2 Connection Dictionary
+dbConnectURLGLOBAL = jdbc:h2:file:/tmp/ERBlog
+dbConnectPluginGLOBAL = H2PlugIn
 
 # Migrations
 er.migration.migrateAtStartup=true

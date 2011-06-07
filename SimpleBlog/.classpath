@@ -24,5 +24,6 @@
 	<classpathentry kind="con" path="WOFramework/WOLips"/>
 	<classpathentry kind="con" path="WOFramework/SimpleBlogLogic"/>
 	<classpathentry kind="con" path="WOFramework/ERRest"/>
+	<classpathentry kind="con" path="WOFramework/H2PlugIn"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
