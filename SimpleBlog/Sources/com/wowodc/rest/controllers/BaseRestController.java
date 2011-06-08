@@ -23,32 +23,32 @@ public class BaseRestController extends ERXDefaultRouteController {
 
   @Override
   public WOActionResults newAction() throws Throwable {
-    return errorResponse("", 405);
+    return errorResponse(405);
   }
 
   @Override
   public WOActionResults updateAction() throws Throwable {
-    return errorResponse("", 405);
+    return errorResponse(405);
   }
 
   @Override
   public WOActionResults destroyAction() throws Throwable {
-    return errorResponse("", 405);
+    return errorResponse(405);
   }
 
   @Override
   public WOActionResults showAction() throws Throwable {
-    return errorResponse("", 405);
+    return errorResponse(405);
   }
 
   @Override
   public WOActionResults createAction() throws Throwable {
-    return errorResponse("", 405);
+    return errorResponse(405);
   }
 
   @Override
   public WOActionResults indexAction() throws Throwable {
-    return errorResponse("", 405);
+    return errorResponse(405);
   }
 
   @Override
@@ -86,7 +86,7 @@ public class BaseRestController extends ERXDefaultRouteController {
 
   @Override
   public WOActionResults performActionNamed(String actionName, boolean throwExceptions)  {
-    if (!(ERXRestFormat.html().name().equals(this.format().name()))) {
+    if (!isHTMlFormat()) {
       try {
         initAuthentication();
       } catch (NoSuchElementException ex) {
@@ -104,6 +104,10 @@ public class BaseRestController extends ERXDefaultRouteController {
 
   protected void setAuthenticatedUser(Person authenticatedUser) {
     this.authenticatedUser = authenticatedUser;
+  }
+  
+  protected boolean isHTMlFormat() {
+    return (ERXRestFormat.html().name().equals(this.format().name())) ? true: false;
   }
   
   public class NotAuthorizedException extends Exception {
