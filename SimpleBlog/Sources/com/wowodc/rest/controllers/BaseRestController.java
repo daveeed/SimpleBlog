@@ -10,10 +10,11 @@ import com.webobjects.appserver.WORequest;
 import com.webobjects.appserver.WOResponse;
 import com.wowodc.model.Person;
 
+import er.extensions.appserver.ERXHttpStatusCodes;
 import er.rest.format.ERXRestFormat;
-import er.rest.routes.ERXDefaultRouteController;
+import er.rest.routes.ERXRouteController;
 
-public class BaseRestController extends ERXDefaultRouteController {
+public class BaseRestController extends ERXRouteController {
 
   private Person authenticatedUser;
   
@@ -21,34 +22,12 @@ public class BaseRestController extends ERXDefaultRouteController {
     super(request);
   }
 
-  @Override
-  public WOActionResults newAction() throws Throwable {
-    return errorResponse(405);
-  }
-
-  @Override
   public WOActionResults updateAction() throws Throwable {
-    return errorResponse(405);
+    return errorResponse(ERXHttpStatusCodes.METHOD_NOT_ALLOWED);
   }
 
-  @Override
-  public WOActionResults destroyAction() throws Throwable {
-    return errorResponse(405);
-  }
-
-  @Override
-  public WOActionResults showAction() throws Throwable {
-    return errorResponse(405);
-  }
-
-  @Override
   public WOActionResults createAction() throws Throwable {
-    return errorResponse(405);
-  }
-
-  @Override
-  public WOActionResults indexAction() throws Throwable {
-    return errorResponse(405);
+    return errorResponse(ERXHttpStatusCodes.METHOD_NOT_ALLOWED);
   }
 
   @Override
@@ -90,11 +69,11 @@ public class BaseRestController extends ERXDefaultRouteController {
       try {
         initAuthentication();
       } catch (NoSuchElementException ex) {
-        WOResponse response = (WOResponse)errorResponse("Unauthorized", 401);
+        WOResponse response = (WOResponse)errorResponse(ERXHttpStatusCodes.UNAUTHORIZED);
         response.setHeader("Basic realm=\"Members\"", "WWW-Authenticate");
         return response;
       } catch (NotAuthorizedException ex) {
-        WOResponse response = (WOResponse)errorResponse("Unauthorized", 401);
+        WOResponse response = (WOResponse)errorResponse(ERXHttpStatusCodes.UNAUTHORIZED);
         response.setHeader("Basic realm=\"Members\"", "WWW-Authenticate");
         return response;
       }

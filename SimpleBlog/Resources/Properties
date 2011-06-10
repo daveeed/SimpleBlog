@@ -1,3 +1,5 @@
+ERXRest.strictMode=true
+
 # OGNL
 ognl.helperFunctions=true
 ognl.inlineBindings=true
