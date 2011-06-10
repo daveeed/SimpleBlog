@@ -16,14 +16,14 @@ public abstract class _BlogCategory extends  ERXGenericRecord {
   public static final String ENTITY_NAME = "BlogCategory";
 
   // Attribute Keys
-  public static final ERXKey<String> NAME = new ERXKey<String>("name");
-  public static final ERXKey<String> SHORT_NAME = new ERXKey<String>("shortName");
+  public static final ERXKey<String> CATEGORY_DESCRIPTION = new ERXKey<String>("categoryDescription");
+  public static final ERXKey<String> URL_FRIENDLY_DESCRIPTION = new ERXKey<String>("urlFriendlyDescription");
   // Relationship Keys
   public static final ERXKey<com.wowodc.model.BlogEntry> ENTRIES = new ERXKey<com.wowodc.model.BlogEntry>("entries");
 
   // Attributes
-  public static final String NAME_KEY = NAME.key();
-  public static final String SHORT_NAME_KEY = SHORT_NAME.key();
+  public static final String CATEGORY_DESCRIPTION_KEY = CATEGORY_DESCRIPTION.key();
+  public static final String URL_FRIENDLY_DESCRIPTION_KEY = URL_FRIENDLY_DESCRIPTION.key();
   // Relationships
   public static final String ENTRIES_KEY = ENTRIES.key();
 
@@ -37,26 +37,26 @@ public abstract class _BlogCategory extends  ERXGenericRecord {
     return localInstance;
   }
 
-  public String name() {
-    return (String) storedValueForKey(_BlogCategory.NAME_KEY);
+  public String categoryDescription() {
+    return (String) storedValueForKey(_BlogCategory.CATEGORY_DESCRIPTION_KEY);
   }
 
-  public void setName(String value) {
+  public void setCategoryDescription(String value) {
     if (_BlogCategory.LOG.isDebugEnabled()) {
-    	_BlogCategory.LOG.debug( "updating name from " + name() + " to " + value);
+    	_BlogCategory.LOG.debug( "updating categoryDescription from " + categoryDescription() + " to " + value);
     }
-    takeStoredValueForKey(value, _BlogCategory.NAME_KEY);
+    takeStoredValueForKey(value, _BlogCategory.CATEGORY_DESCRIPTION_KEY);
   }
 
-  public String shortName() {
-    return (String) storedValueForKey(_BlogCategory.SHORT_NAME_KEY);
+  public String urlFriendlyDescription() {
+    return (String) storedValueForKey(_BlogCategory.URL_FRIENDLY_DESCRIPTION_KEY);
   }
 
-  public void setShortName(String value) {
+  public void setUrlFriendlyDescription(String value) {
     if (_BlogCategory.LOG.isDebugEnabled()) {
-    	_BlogCategory.LOG.debug( "updating shortName from " + shortName() + " to " + value);
+    	_BlogCategory.LOG.debug( "updating urlFriendlyDescription from " + urlFriendlyDescription() + " to " + value);
     }
-    takeStoredValueForKey(value, _BlogCategory.SHORT_NAME_KEY);
+    takeStoredValueForKey(value, _BlogCategory.URL_FRIENDLY_DESCRIPTION_KEY);
   }
 
   public NSArray<com.wowodc.model.BlogEntry> entries() {
@@ -132,10 +132,10 @@ public abstract class _BlogCategory extends  ERXGenericRecord {
   }
 
 
-  public static com.wowodc.model.BlogCategory createBlogCategory(EOEditingContext editingContext, String name
+  public static com.wowodc.model.BlogCategory createBlogCategory(EOEditingContext editingContext, String categoryDescription
 ) {
     com.wowodc.model.BlogCategory eo = (com.wowodc.model.BlogCategory) EOUtilities.createAndInsertInstance(editingContext, _BlogCategory.ENTITY_NAME);    
-		eo.setName(name);
+		eo.setCategoryDescription(categoryDescription);
     return eo;
   }
 

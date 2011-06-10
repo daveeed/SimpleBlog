@@ -1,17 +1,21 @@
 {
     attributes = (
+        {
+            columnName = categoryDescription; 
+            name = categoryDescription; 
+            prototypeName = varchar100; 
+        }, 
         {allowsNull = N; name = id; prototypeName = id; }, 
-        {columnName = name; name = name; prototypeName = varchar100; }, 
         {
             allowsNull = Y; 
-            columnName = shortName; 
-            name = shortName; 
+            columnName = urlFriendlyDescription; 
+            name = urlFriendlyDescription; 
             prototypeName = varchar50; 
         }
     ); 
-    attributesUsedForLocking = (id, name, shortName); 
+    attributesUsedForLocking = (categoryDescription, id, urlFriendlyDescription); 
     className = "com.wowodc.model.BlogCategory"; 
-    classProperties = (entries, name, shortName); 
+    classProperties = (categoryDescription, entries, urlFriendlyDescription); 
     externalName = BlogCategory; 
     fetchSpecificationDictionary = {}; 
     name = BlogCategory; 

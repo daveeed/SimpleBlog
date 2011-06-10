@@ -32,8 +32,8 @@ public class BlogEntryController extends BaseRestController {
 
   protected ERXKeyFilter filter() {
     ERXKeyFilter filter = ERXKeyFilter.filterWithAttributes();
-    filter.include(BlogEntry.CATEGORIES.dot(BlogCategory.NAME));
-    filter.include(BlogEntry.CATEGORIES.dot(BlogCategory.SHORT_NAME));
+    filter.include(BlogEntry.CATEGORIES.dot(BlogCategory.CATEGORY_DESCRIPTION));
+    filter.include(BlogEntry.CATEGORIES.dot(BlogCategory.URL_FRIENDLY_DESCRIPTION));
     filter.include(BlogEntry.PERSON.dot(Person.FIRST_NAME));
     return filter;
   }

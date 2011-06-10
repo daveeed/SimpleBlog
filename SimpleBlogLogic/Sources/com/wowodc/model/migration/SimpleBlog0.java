@@ -12,7 +12,7 @@ public class SimpleBlog0 extends ERXMigrationDatabase.Migration {
   public NSArray<ERXModelVersion> modelDependencies() {
     return null;
   }
-
+  
   @Override
   public void downgrade(EOEditingContext editingContext, ERXMigrationDatabase database) throws Throwable {
     // DO NOTHING
@@ -20,12 +20,11 @@ public class SimpleBlog0 extends ERXMigrationDatabase.Migration {
 
   @Override
   public void upgrade(EOEditingContext editingContext, ERXMigrationDatabase database) throws Throwable {
-    ERXMigrationTable blogCategoryTable = database.newTableNamed("BlogCategory");
-    blogCategoryTable.newIntegerColumn("id", false);
-    blogCategoryTable.newStringColumn("name", 100, false);
-    blogCategoryTable.newStringColumn("shortName", 50, false);
-    blogCategoryTable.create();
-    blogCategoryTable.setPrimaryKey("id");
+    ERXMigrationTable xPersonRoleTable = database.newTableNamed("XPersonRole");
+    xPersonRoleTable.newIntegerColumn("personId", false);
+    xPersonRoleTable.newIntegerColumn("roleId", false);
+    xPersonRoleTable.create();
+    xPersonRoleTable.setPrimaryKey("roleId", "personId");
 
     ERXMigrationTable blogEntryTable = database.newTableNamed("BlogEntry");
     blogEntryTable.newStringColumn("body", 10000000, false);
@@ -37,17 +36,24 @@ public class SimpleBlog0 extends ERXMigrationDatabase.Migration {
     blogEntryTable.create();
     blogEntryTable.setPrimaryKey("id");
 
-    ERXMigrationTable xPersonRoleTable = database.newTableNamed("XPersonRole");
-    xPersonRoleTable.newIntegerColumn("personId", false);
-    xPersonRoleTable.newIntegerColumn("roleId", false);
-    xPersonRoleTable.create();
-    xPersonRoleTable.setPrimaryKey("roleId", "personId");
+    ERXMigrationTable roleTable = database.newTableNamed("Role");
+    roleTable.newIntegerColumn("id", false);
+    roleTable.newStringColumn("roleDescription", 255, false);
+    roleTable.create();
+    roleTable.setPrimaryKey("id");
 
     ERXMigrationTable blogCategoryEntryTable = database.newTableNamed("BlogCategoryEntry");
     blogCategoryEntryTable.newIntegerColumn("blogCategoryId", false);
     blogCategoryEntryTable.newIntegerColumn("blogEntryId", false);
     blogCategoryEntryTable.create();
-    blogCategoryEntryTable.setPrimaryKey("blogCategoryId", "blogEntryId");
+    blogCategoryEntryTable.setPrimaryKey("blogEntryId", "blogCategoryId");
+
+    ERXMigrationTable blogCategoryTable = database.newTableNamed("BlogCategory");
+    blogCategoryTable.newStringColumn("categoryDescription", 100, false);
+    blogCategoryTable.newIntegerColumn("id", false);
+    blogCategoryTable.newStringColumn("urlFriendlyDescription", 50, true);
+    blogCategoryTable.create();
+    blogCategoryTable.setPrimaryKey("id");
 
     ERXMigrationTable personTable = database.newTableNamed("Person");
     personTable.newStringColumn("email", 255, true);
@@ -59,15 +65,9 @@ public class SimpleBlog0 extends ERXMigrationDatabase.Migration {
     personTable.create();
     personTable.setPrimaryKey("id");
 
-    ERXMigrationTable roleTable = database.newTableNamed("Role");
-    roleTable.newIntegerColumn("id", false);
-    roleTable.newStringColumn("roleDescription", 255, false);
-    roleTable.create();
-    roleTable.setPrimaryKey("id");
-
-    blogEntryTable.addForeignKey("personID", "Person", "id");
     xPersonRoleTable.addForeignKey("personId", "Person", "id");
     xPersonRoleTable.addForeignKey("roleId", "Role", "id");
+    blogEntryTable.addForeignKey("personID", "Person", "id");
     blogCategoryEntryTable.addForeignKey("blogCategoryId", "BlogCategory", "id");
     blogCategoryEntryTable.addForeignKey("blogEntryId", "BlogEntry", "id");
   }

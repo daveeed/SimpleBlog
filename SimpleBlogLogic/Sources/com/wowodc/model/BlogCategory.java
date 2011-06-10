@@ -10,8 +10,8 @@ public class BlogCategory extends com.wowodc.model.generated._BlogCategory {
 	
 	@Override
 	public void willInsert() {
-	  String shortName = ERXStringUtilities.toLowerCase(ERXStringUtilities.removeCharacters(name(), " "));
-	  setShortName(shortName);
+	  String shortName = ERXStringUtilities.toLowerCase(ERXStringUtilities.removeCharacters(categoryDescription(), " "));
+	  setUrlFriendlyDescription(shortName);
 	  super.willInsert();
 	}
 }
