@@ -48,12 +48,9 @@ public class DirectAction extends ERD2WDirectAction {
     }
     else {
       try {
-        EOQualifier qual = Person.LOGIN.eq(username).and(Person.PASSWORD.eq(password));
-        Person user = Person.fetchRequiredPerson(ERXEC.newEditingContext(), qual);
-        NSLog.out.appendln("The user is " + user);
+        Person user = Person.validateLogin(ERXEC.newEditingContext(), username, password);
         ((Session) session()).setUser(user);
         nextPage = ((Session) session()).navController().listBlogAction();
-
       }
       catch (NoSuchElementException e) {
         errorMessage = "No user found for that combination of username and password.";

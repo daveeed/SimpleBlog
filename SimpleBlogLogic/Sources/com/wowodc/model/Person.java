@@ -1,9 +1,14 @@
 package com.wowodc.model;
 
+import java.util.NoSuchElementException;
+
 import org.apache.log4j.Logger;
 
 import com.webobjects.eocontrol.EOEditingContext;
+import com.webobjects.eocontrol.EOQualifier;
+import com.webobjects.foundation.NSLog;
 
+import er.extensions.eof.ERXEC;
 import er.extensions.eof.ERXEOControlUtilities;
 import er.extensions.foundation.ERXThreadStorage;
 
@@ -45,5 +50,12 @@ public class Person extends com.wowodc.model.generated._Person {
 
   public String fullName() {
     return this.firstName() + " " + this.lastName();
+  }
+  
+  public static Person validateLogin(EOEditingContext editingContext, String username, String password) {
+    EOQualifier qual = Person.LOGIN.eq(username).and(Person.PASSWORD.eq(password));
+    Person user = Person.fetchRequiredPerson(editingContext, qual);
+    NSLog.out.appendln("The user is " + user);
+    return user;
   }
 }
