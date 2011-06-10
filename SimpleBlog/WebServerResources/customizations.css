@@ -1,1 +1,16 @@
 /* Enter custom rules for CSS required by your application here */
+
+
+
+.CategoriesAttrVal input {
+	width: 40px;
+}
+
+.CategoriesAttrVal table td {
+	border: 0;
+	padding: 3px;
+}
+
+.CategoriesAttrVal table.ERXMatrixTable {
+	margin-bottom: 0;
+}
