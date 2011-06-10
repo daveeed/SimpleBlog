@@ -133,11 +133,9 @@ public abstract class _BlogCategory extends  ERXGenericRecord {
 
 
   public static com.wowodc.model.BlogCategory createBlogCategory(EOEditingContext editingContext, String name
-, String shortName
 ) {
     com.wowodc.model.BlogCategory eo = (com.wowodc.model.BlogCategory) EOUtilities.createAndInsertInstance(editingContext, _BlogCategory.ENTITY_NAME);    
 		eo.setName(name);
-		eo.setShortName(shortName);
     return eo;
   }
 

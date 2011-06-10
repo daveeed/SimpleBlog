@@ -16,6 +16,7 @@ public class MainNavigationController {
 
   private Session _session;
   public String BLOGENTRY = "BlogEntry";
+  public String BLOGCATEGORY = "BlogCategory";
 
   public MainNavigationController(Session s) {
     super();
@@ -92,6 +93,16 @@ public class MainNavigationController {
 
   public WOComponent createBlogAction() {
     return newObjectForEntityName(BLOGENTRY);
+  }
+  
+  // BLOG CATEGORY
+  
+  public WOComponent listBlogCategoryAction() {
+    return listPageForEntityNamed(BLOGCATEGORY);
+  }
+  
+  public WOComponent createBlogCategoryAction() {
+    return newObjectForEntityName(BLOGCATEGORY);
   }
 
   // GENERIC ACTIONS

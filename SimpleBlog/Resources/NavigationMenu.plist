@@ -1,16 +1,16 @@
 (
 	{
 		name = Root;
-		children = ("Blog","CreateBlog");
+		children = ("Blog","Category");
 	},
 	{
 		name = "Blog";
 		action = "session.navController.listBlogAction";
-		children = ("NormalList","GroupedList","Tables");
+		children = ("List","CreateBlog");
 	},
 	{
-		name = NormalList;
-		children = ("Normal","XML");
+		name = List;
+		// children = ("Normal","XML");
 		action = "session.navController.listBlogAction";
 	},	
 	{
@@ -41,5 +41,18 @@
 	{
 		name = CreateBlog;
 		action = "session.navController.createBlogAction";
-	}
+	},
+	{
+		name = Category;
+		children = ("CreateBlogCategory","ListBlogCategory");
+		action = "session.navController.createBlogCategoryAction";
+	},
+	{
+		name = CreateBlogCategory;
+		action = "session.navController.createBlogCategoryAction";
+	},
+	{
+		name = ListBlogCategory;
+		action = "session.navController.listBlogCategoryAction";
+	},	
 )

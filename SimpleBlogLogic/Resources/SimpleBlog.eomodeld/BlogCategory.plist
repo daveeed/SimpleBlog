@@ -2,7 +2,12 @@
     attributes = (
         {allowsNull = N; name = id; prototypeName = id; }, 
         {columnName = name; name = name; prototypeName = varchar100; }, 
-        {columnName = shortName; name = shortName; prototypeName = varchar50; }
+        {
+            allowsNull = Y; 
+            columnName = shortName; 
+            name = shortName; 
+            prototypeName = varchar50; 
+        }
     ); 
     attributesUsedForLocking = (id, name, shortName); 
     className = "com.wowodc.model.BlogCategory"; 
