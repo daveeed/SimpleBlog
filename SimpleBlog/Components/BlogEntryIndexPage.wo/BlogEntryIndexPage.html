@@ -1,6 +1,8 @@
 <wo:loop list="$entries" item="$entryItem">
   <div class="post">
-    <h2><wo:str value="$entryItem.title" /></h2>
+    <h2><wo:ERXRouteLink action="showByTitle" entityName="BlogEntry"><wo:str value="$entryItem.title" /></wo:ERXRouteLink></h2>
+    <p>Date: <wo:str value="$entryItem.timestampCreation" /></p> 
     <p><wo:str value="$entryItem.body" /></p>
+    <p>Author: <wo:str value="$entryItem.person.fullName" /></p>
   </div>
 </wo:loop>
