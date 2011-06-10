@@ -3,7 +3,7 @@
   "Nav.ListBlog" = "List Blog Entries";
   "Nav.CreateBlog" = "Create Blog Entry";
   "Nav.ListBlogCategory" = "List Blog Categories";
-  "Nav.CreateBlogCategory" = "Create Blog Categories";
+  "Nav.CreateBlogCategory" = "Create Blog Category";
   "Nav.Admin" = "Admin";
   
   "ERD2W.advancedFindButtonLabel" = "Advanced...";
