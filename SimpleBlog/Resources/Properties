@@ -35,7 +35,7 @@ dbConnectJDBCInfoGLOBAL =
 # er.extensions.ERXSQLHelper$FrontBaseSQLHelper
 
 # H2 Connection Dictionary
-dbConnectURLGLOBAL = jdbc:h2:file:/tmp/ERBlog
+dbConnectURLGLOBAL = jdbc:h2:file:/tmp/simpleblog
 dbConnectPluginGLOBAL = H2PlugIn
 
 # Migrations
