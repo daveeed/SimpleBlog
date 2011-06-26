@@ -7,5 +7,7 @@
   "Nav.Admin" = "Admin";
   
   "ERD2W.advancedFindButtonLabel" = "Advanced...";
+  "PropertyKey.person.firstName" = "";
+  "PropertyKey.person.lastName" = "";
   
 }
