@@ -1,0 +1,332 @@
+<html>
+<head>
+	<title>$entity.model.name, $entity.name</title>
+	<link href = "../../eomodeldoc.css" rel = "stylesheet" type = "text/css">
+	<script src = "../../prototype.js"></script>
+	<script src = "../../eomodeldoc.js"></script>
+</head>
+<body onLoad="toggleProperty('attribute', 'nonClassProperty'); toggleProperty('relationship', 'nonClassProperty');">
+
+<div class = "section entity">
+	<h1>
+	#if ($entity.abstractEntity)
+		<span class = "entity abstract"><a href = "../content.html">$entity.model.name</a></span> / <span class = "entity abstract">$entity.name</span>
+	#else 
+		<a href = "../content.html">$entity.model.name</a> / $entity.name
+	#end
+	#if ($entity.parent)
+	<div class = "parentEntity"> : <a href = "../../$entity.parent.model.name/entities/${entity.parent.name}.html">$entity.parent.name</a></div>
+	#end
+	#if (!$entity.childrenEntities.empty)
+	<div class = "childrenEntities">
+		parent of
+		#foreach ($child in $entity.childrenEntities)
+			<a href = "../../$child.model.name/entities/${child.name}.html">$child.name</a>#if ($velocityCount < $entity.childrenEntities.size()),#end
+		#end
+	</div>
+	#end
+	#if (!$entity.referencingEntities.empty)
+	<div class = "referencingEntities">
+		referenced by 
+		#foreach ($referencingEntity in $entity.referencingEntities)
+			<a href = "../../$referencingEntity.model.name/entities/${referencingEntity.name}.html">$referencingEntity.name</a>#if ($velocityCount < $entity.referencingEntities.size()),#end
+		#end
+	</div>
+	#end
+	</h1>
+	#if ($entity.documentation)
+	<div class = "documentation">$entity.documentation</div>
+	#end
+
+	<table class = "details">
+		#if ($entity.externalName)
+		<tr>
+			<th>External Name</th>
+			<td>$entity.externalName</td>
+		</tr>
+		#end
+
+		#if ($entity.className)
+		<tr>
+			<th>Class Name</th>
+			#if ($entityURL)
+			<td><a href = "$entityURL">$entity.className</a></td>
+			#else
+			<td>$entity.className</td>
+			#end
+		</tr>
+		#end
+	</table>
+</div>
+
+<div class = "section attributes">
+	<h2>Attributes</h2>
+	<div class = "actions">
+		#if (!$entity.attributes.empty)
+		<a id = "attribute_details_toggle" href = "javascript:void(0)" onclick = "toggleProperty('attribute', 'details')">show details</a>
+		#end
+		#if (!$entity.nonClassAttributes.empty)
+		<a id = "attribute_nonClassProperty_toggle" href = "javascript:void(0)" onclick = "toggleProperty('attribute', 'nonClassProperty')">show non-class</a>
+		#end
+		#if (!$entity.inheritedAttributes.empty)
+		<a id = "attribute_inheritedProperty_toggle" href = "javascript:void(0)" onclick = "toggleProperty('attribute', 'inheritedProperty')">hide inherited</a>
+		#end
+		#if ($entity.attributes.empty)
+		no attributes
+		#end
+	</div>
+	#if (!$entity.attributes.empty)
+	<ul>
+		#foreach ($attribute in $entity.sortedAttributes)
+		<li class = "attribute #if ($attribute.classProperty) classProperty#else nonClassProperty#end #if ($attribute.inherited) inheritedProperty#else nonInheritedProperty#end #if ($attribute.primaryKey) primaryKey#end">
+			<div class = "name#if ($attribute.flattened) flattened#end"><a href="javascript:void(0)" onClick="$('${attribute.name}_details').toggle();"/>$attribute.name</a>#if ($attribute.primaryKey) [primary key]#end</div>
+			
+			#if ($attribute.documentation)
+			<div class = "documentation">$attribute.documentation</div>
+			#end
+			<table class = "details" id="${attribute.name}_details" style = "display: none">
+				#if ($attribute.columnName)
+				<tr>
+					<th>Column Name</th>
+						<td>$attribute.columnName
+						#if ($attribute.flattened)
+							via $attribute.definition
+						#end</td>
+				</tr>
+				#end
+				#if ($attribute.externalType)
+				<tr>
+					<th>External Type</th>
+					#if ($attribute.prototype)
+					<td>$attribute.prototype.name ($attribute.externalType)</td>
+					#else
+					<td>$attribute.externalType</td>
+					#end
+				</tr>
+				#end
+				<tr>
+					<th>Allows Null?</th>
+					#if ($attribute.allowsNull)
+					<td>Yes</td>
+					#else
+					<td>No</td>
+					#end
+				</tr>
+				<tr>
+					<th>Used For Locking?</th>
+					#if ($attribute.usedForLocking)
+					<td>Yes</td>
+					#else
+					<td>No</td>
+					#end
+				</tr>
+				#if ($attribute.definition)
+				<tr>
+					<th>Definition</th>
+					<td>$attribute.definition</td>
+				</tr>
+				#end
+				#if ($attribute.width)
+				<tr>
+					<th>Width</th>
+					<td>$attribute.width</td>
+				</tr>
+				#end
+				#if ($attribute.scale)
+				<tr>
+					<th>Scale</th>
+					<td>$attribute.scale</td>
+				</tr>
+				#end
+				#if ($attribute.precision)
+				<tr>
+					<th>Precision</th>
+					<td>$attribute.precision</td>
+				</tr>
+				#end
+			</table>
+		</li>
+		#end
+	</ul>
+	#end
+</div>
+
+<div class = "section relationships">
+	<h2>Relationships</h2>
+	<div class = "actions">
+		#if (!$entity.relationships.empty)
+		<a id = "relationship_details_toggle" href = "javascript:void(0)" onclick = "toggleProperty('relationship', 'details')">show details</a>
+		#end
+		#if (!$entity.nonClassRelationships.empty)
+		<a id = "relationship_nonClassProperty_toggle"href = "javascript:void(0)" onclick = "toggleProperty('relationship', 'nonClassProperty')">show non-class</a>
+		#end
+		#if (!$entity.inheritedRelationships.empty)
+		<a id = "relationship_inheritedProperty_toggle" href = "javascript:void(0)" onclick = "toggleProperty('relationship', 'inheritedProperty')">hide inherited</a>
+		#end
+		#if ($entity.relationships.empty)
+		no relationships
+		#end
+	</div>
+	#if (!$entity.relationships.empty)
+	<ul class = "relationships">
+		#foreach ($relationship in $entity.sortedRelationships)
+		<li class = "relationship #if ($relationship.classProperty) classProperty#else nonClassProperty#end #if ($relationship.inherited) inheritedProperty#else nonInheritedProperty#end">
+			<div class = "name#if ($relationship.flattened) flattened#end"><a href="javascript:void(0)" onClick="$('${relationship.name}_details').toggle()"/>$relationship.name</a></div>
+
+			#if ($relationship.documentation)
+			<div class = "documentation">$relationship.documentation</div>
+			#end
+	
+			<table class = "details" id="${relationship.name}_details" style = "display: none">
+				#if ($relationship.destination)
+					<tr>
+						<th>To</th>
+						<td>
+								<a href = "../../$relationship.destination.model.name/entities/${relationship.destination.name}.html">$relationship.destination.name</a>
+								#if ($relationship.flattened)
+									via
+										#foreach ($pathElement in $relationship.definitionPath.pathElements)<a href = "../../$pathElement.childRelationship.destination.model.name/entities/${pathElement.childRelationship.destination.name}.html">$pathElement.childRelationship.name</a>#if ($velocityCount < $relationship.definitionPath.pathElements.size()).#end#end 
+								#end
+						</td>
+					</tr>
+				#end
+				<tr>
+					<th>Type</th>
+					<td>
+						#if ($relationship.flattened) Flattened #end
+						#if ($relationship.joinSemantic.ID != "EOInnerJoin") $relationship.joinSemantic.name #end
+						#if ($relationship.toOne)
+							#if ($relationship.mandatory)
+								Mandatory To-One
+							#else
+								Optional To-One
+							#end
+						#else
+						To-Many
+						#end
+					</td>
+				</tr>
+				#if (!$relationship.joins.empty)
+				<tr>
+					<th>Joins</th>
+					<td>
+						<table class = "joins">
+							#foreach ($join in $relationship.joins)
+								<tr>
+									<td>$join.sourceAttribute.name</td>
+									<td class = "direction">&nbsp;&gt;&nbsp;</td>
+									<td>$join.destinationAttribute.name</td>
+								</tr>
+							#end
+						</table>
+					</td>
+				</tr>
+				#end
+			</table>
+		</li>
+		#end
+	</ul>
+	#end
+</div>
+
+<div class = "section fetchSpecs">
+	<h2>Fetch Specifications</h2>
+	<div class = "actions">
+		#if (!$entity.fetchSpecs.empty)
+		<a id = "fetchSpec_details_toggle" href = "javascript:void(0)" onclick = "toggleProperty('fetchSpec', 'details')">show details</a>
+		#end
+		#if ($entity.fetchSpecs.empty)
+		no fetch specification
+		#end
+	</div>
+	#if (!$entity.fetchSpecs.empty)
+	<ul>
+		#foreach ($fetchSpec in $entity.sortedFetchSpecs)
+		<li class = "fetchSpec">
+			<div class = "name">$fetchSpec.name</div>
+			#if ($fetchSpec.documentation)
+			<div class = "documentation">$fetchSpec.documentation</div>
+			#end
+	
+			<table class = "details" style = "display: none">
+				<tr>
+					<th>Qualifier</th>
+					<td>$fetchSpec.qualifier</td>
+				</tr>
+				
+				#if (!$fetchSpec.sortOrderings.empty)
+				<tr>
+					<th>Sort Orderings</th>
+					<td>
+						<ol class = "sortOrderings">
+						#foreach ($sortOrdering in $fetchSpec.sortOrderings)
+							<li>
+							$sortOrdering.key
+							#if ($sortOrdering.ascending)
+								(asc)
+							#else
+								(desc)
+							#end
+							#if ($sortOrdering.caseInsensitive)
+								(insensitive)
+							#end
+							</li>
+						#end
+						</ol>
+					</td>
+				</tr>
+				#end
+				
+				#if ($fetchSpec.fetchLimit)
+				<tr>
+					<th>Fetch Limit</th>
+					<td>$fetchSpec.fetchLimit</td>
+				</tr>
+				#end
+
+				<tr>
+					<th>Deep Fetch?</th>
+					<td>$fetchSpec.deep</td>
+				</tr>
+				
+				<tr>
+					<th>Refreshes Refetched?</th>
+					<td>
+					#if ($fetchSpec.refreshesRefetchedObjects)
+						$fetchSpec.refreshesRefetchedObjects
+					#else
+						false
+					#end
+					</td>
+				</tr>
+			</table>
+		</li>
+		#end
+	</ul>
+	#end
+</div>
+
+<div class = "section entityIndexes">
+	<h2>Entity Indexes</h2>
+	<div class = "actions">
+		#if ($entity.entityIndexes.empty)
+			no entity indexes
+		#end
+		&nbsp;
+	</div>
+	#if (!$entity.entityIndexes.empty)
+	<ul>
+		#foreach ($entityIndex in $entity.sortedEntityIndexes)
+		<li class = "entityIndex">
+			<div class = "name">$entityIndex.name</div>
+			#if ($entityIndex.documentation)
+			<div class = "documentation">$entityIndex.documentation</div>
+			#end
+		</li>
+		#end
+	</ul>
+	#end
+</div>
+
+</body>
+</html>

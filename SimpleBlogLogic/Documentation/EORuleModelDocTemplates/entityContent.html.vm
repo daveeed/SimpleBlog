@@ -1,0 +1,52 @@
+<html>
+<head>
+	<title>$entity.model.name, $entity.name</title>
+	<link href = "../../eomodeldoc.css" rel = "stylesheet" type = "text/css">
+	<script src = "../../prototype.js"></script>
+	<script src = "../../eomodeldoc.js"></script>
+</head>
+<body onLoad="toggleProperty('attribute', 'nonClassProperty'); toggleProperty('relationship', 'nonClassProperty');">
+
+<div class = "section entity">
+	<h1>
+<pre>$entity.model.name
+pageConfigurationName:
+displayNameForPageConfiguration:
+navigationState:
+Task:
+Entity: $entity.name		</pre>
+	</h1>
+</div>
+<h2><pre>	propertyKey	displayNameForProperty	componentName</pre></h2>
+<div class = "section attributes">
+	<h2><pre>		Attributes	---	---</pre></h2>
+	#if (!$entity.attributes.empty)
+		#foreach ($attribute in $entity.sortedAttributes)
+			<div class = "attribute #if ($attribute.classProperty) classProperty#else nonClassProperty#end #if ($attribute.inherited) inheritedProperty#else nonInheritedProperty#end #if ($attribute.primaryKey) primaryKey#end">
+				<div class = "name#if ($attribute.flattened) flattened#end"><pre>			$attribute.name#if ($attribute.primaryKey) [primary key]#end	#if ($attribute.userInfo.documentationDisplayName) $attribute.userInfo.documentationDisplayName#else -#end	-</pre></div>
+			</div>
+		#end
+	#end
+</div>
+
+<div class = "section relationships">
+	<h2><pre>		Relationships	---	---</pre></h2>
+	#if (!$entity.relationships.empty)
+
+		#foreach ($relationship in $entity.sortedRelationships)
+		<div class = "relationship #if ($relationship.classProperty) classProperty#else nonClassProperty#end #if ($relationship.inherited) inheritedProperty#else nonInheritedProperty#end">
+			<div class = "name#if ($relationship.flattened) flattened#end"><pre>			$relationship.name	-	-</pre></div>
+
+			#if ($relationship.documentation)
+			<div class = "documentation">$relationship.documentation</div>
+			#end
+	
+			
+		</div>
+		#end
+
+	#end
+</div>
+<h2><pre>		displayPropertyKeys / tabSectionContents</pre></h2>
+</body>
+</html>
