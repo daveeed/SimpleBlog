@@ -1,4 +1,34 @@
-<project name="SimpleBlog" default="build" basedir=".">
+<project name="TotalViewAdminD2W" default="build" basedir=".">
+
+	<!-- Write current build and revision #s into Properties file. -->
+	<target name="updateBuildNumber">
+
+		<exec executable="svnversion" dir="" outputproperty="svn.revision" />
+		<echo>Revision: ${svn.revision}</echo>
+		<replaceregexp file="Resources/Properties" 
+			match="RevisionNumber=(.*)" 
+			replace="RevisionNumber=${svn.revision}" />
+
+		<property environment="env" />
+		<echo>Build Number: ${env.BUILD_NUMBER}</echo>
+		<replaceregexp file="Resources/Properties" 
+			match="BuildNumber=(.*)" 
+			replace="BuildNumber=${env.BUILD_NUMBER}" />
+
+		<property environment="env" />
+		<echo>Wonder Revision: ${WONDER_REVISION}</echo>
+		<replaceregexp file="Resources/Properties" 
+			match="WonderRevisionNumber=(.*)" 
+			replace="WonderRevisionNumber=${WONDER_REVISION}" />
+
+	</target>
+
+	<!-- Install dependent frameworks in final local install location before embedding -->
+	<target name="installDependantFrameworks">
+		<!-- Commented out to work with hudson.
+					<ant dir="../TotalViewCommon" target="install" inheritall="false" /> -->
+	</target>
+
 	<target name="build" depends="init.build,build.woapp,javaclient,ssdd,war,split,package" />
 
 	<target name="install" depends="init.install,build.woapp,javaclient,ssdd,war,split,package" />
@@ -18,7 +48,7 @@
 		<tstamp />
 		<property name="dest.dir" value="dist" />
 	</target>
-	
+
 	<!-- property determination  -->
 	<target name="init.properties">
 		<property file="build.properties" />
@@ -43,7 +73,7 @@
 	<target name="split" description="Adds embedded framework webserver resources to the split install bundle by copying from deployment build bundle" unless="servletDeployment">
 		<property name="wsdest.dir" value="${dest.dir}/Split" />
 		<mkdir dir="${wsdest.dir}"/>
-		<copy todir="${wsdest.dir}/WebObjects/${build.app.name}.woa" verbose="true">
+		<copy todir="${wsdest.dir}/WebObjects/${build.app.name}.woa" verbose="false">
 			<fileset dir="${dest.dir}/${build.app.name}.woa/Contents">
 				<include name="Frameworks/*.framework/WebServerResources/**"/>
 			</fileset>
@@ -53,35 +83,34 @@
 		</copy>
 	</target>
 
-  <target name="package" unless="servletDeployment">
-    <tar destfile="${dest.dir}/${build.app.name}-Application.tar.gz"
+	<target name="package" unless="servletDeployment">
+		<tar destfile="${dest.dir}/${build.app.name}-Application.tar.gz"
         compression="gzip"
         longfile="gnu">
-      <tarfileset dir="${dest.dir}" mode="750">
-        <include name="${build.app.name}.woa/${build.app.name}"/>
-      </tarfileset>
-      <tarfileset dir="${dest.dir}">
-        <exclude name="${build.app.name}.woa/${build.app.name}"/>
-        <include name="${build.app.name}.woa/**"/>
-      </tarfileset>
-    </tar>
-    <tar destfile="${dest.dir}/${build.app.name}-WebServerResources.tar.gz"
+			<tarfileset dir="${dest.dir}" mode="750">
+				<include name="${build.app.name}.woa/${build.app.name}"/>
+			</tarfileset>
+			<tarfileset dir="${dest.dir}">
+				<exclude name="${build.app.name}.woa/${build.app.name}"/>
+				<include name="${build.app.name}.woa/**"/>
+			</tarfileset>
+		</tar>
+		<tar destfile="${dest.dir}/${build.app.name}-WebServerResources.tar.gz"
         compression="gzip"
         basedir="${wsdest.dir}/WebObjects"
         longfile="gnu"
         includes="${build.app.name}.woa/**">
-    </tar>
+		</tar>
 	</target>
 
 	<!-- woproject tasks -->
 	<target name="build.woapp" depends="compile">
 		<taskdef name="woapplication" classname="org.objectstyle.woproject.ant.WOApplication"/>
 
-		<woapplication name="${build.app.name}" frameworksBaseURL="/WebObjects/${build.app.name}.woa/Frameworks" destDir="${dest.dir}" customInfoPListContent="${customInfoPListContent}" principalClass="${principalClass}" webXML="${webXML}" webXML_CustomContent="${webXML_CustomContent}" servletAdaptor="com.webobjects.jspservlet.WOServletAdaptor">
+		<woapplication name="${build.app.name}" frameworksBaseURL="/WebObjects/${project.name}.woa/Frameworks" destDir="${dest.dir}" customInfoPListContent="${customInfoPListContent}" principalClass="${principalClass}" webXML="${webXML}" webXML_CustomContent="${webXML_CustomContent}" servletAdaptor="er.extensions.jspservlet.ERXServletAdaptor">
 			<classes dir="${classes.dir}">
 				<includesfile name="woproject/classes.include.patternset" />
 				<excludesfile name="woproject/classes.exclude.patternset" />
-				<exclude if="javaClient" name="**/client/**/*.*"/>
 			</classes>
 
 			<wsresources dir=".">
@@ -92,7 +121,6 @@
 			<resources dir=".">
 				<includesfile name="woproject/resources.include.patternset" />
 				<excludesfile name="woproject/resources.exclude.patternset" />
-				<exclude if="javaClient" name="**/client/**/*.*"/>
 			</resources>
 
 			<frameworks root="ProjectLocal" embed="${embed.ProjectLocal}" eclipse="true" />
@@ -107,11 +135,14 @@
 			</lib>
 		</woapplication>
 	</target>
-	
+
 	<target name="javaclient" if="javaClient" depends="build.woapp">
 		<mkdir dir="${dest.dir}/${build.app.name}.woa/Contents/WebServerResources/Java" />
-		<jar basedir="${classes.dir}" excludes="**/server/**/*.*, **/server/**/" jarfile="${dest.dir}/${build.app.name}.woa/Contents/WebServerResources/Java/${build.app.name}.jar"/>
-    </target>
+		<jar basedir="${classes.dir}" includes="**/client/**/*.class,**/common/**/*.class" jarfile="${dest.dir}/${build.app.name}.woa/Contents/WebServerResources/Java/${build.app.name}.jar"/>
+
+		<!-- project user.d2wmodel file (D2JC only) -->
+		<copy file="user.d2wmodel" tofile="${dest.dir}/${build.app.name}.woa/Contents/Resources/user.d2wmodel"/>
+	</target>
 
 	<target name="war" if="servletDeployment" depends="ssdd">
 		<war destfile="${dest.dir}/${build.app.name}.war" webxml="${dest.dir}/${build.app.name}/WEB-INF/web.xml">
@@ -179,15 +210,15 @@
 			</fileset>
 			<mapper type="flatten" />
 		</copy>
-		
+
 		<!-- the Java Client Client-Side Classes 	  -->
 		<copy todir="${dest.dir}/${build.app.name}/WEB-INF/${build.app.name}.woa/Contents/WebServerResources/Java">
-			<fileset dir="${wo.local.frameworks}"> 
-				<include name="**/WebServerResources/Java/*.jar"/> 
-			</fileset> 
+			<fileset dir="${wo.local.frameworks}">
+				<include name="**/WebServerResources/Java/*.jar"/>
+			</fileset>
 			<mapper type="flatten"/>
 		</copy>
-		
+
 		<!-- fix the Macos*ClassPath.txt files  -->
 		<replaceregexp file="${dest.dir}/${build.app.name}/WEB-INF/${build.app.name}.woa/Contents/MacOS/MacOSClassPath.txt" match="APPROOT/Resources/Java/${build.app.name.lowercase}.jar" replace="APPROOT/${build.app.name}.woa/Contents/Resources/Java/${build.app.name.lowercase}.jar" byline="true" />
 		<replaceregexp file="${dest.dir}/${build.app.name}/WEB-INF/${build.app.name}.woa/Contents/MacOS/MacOSXServerClassPath.txt" match="APPROOT/Resources/Java/${build.app.name.lowercase}.jar" replace="APPROOT/${build.app.name}.woa/Contents/Resources/Java/${build.app.name.lowercase}.jar" byline="true" />
