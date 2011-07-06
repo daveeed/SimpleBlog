@@ -34,12 +34,19 @@
     ); 
     attributesUsedForLocking = (email, firstName, id, lastName, login, password); 
     className = "com.wowodc.model.Person"; 
-    classProperties = (blogEntries, email, firstName, lastName, login, password, roles); 
+    classProperties = (blogComments, blogEntries, email, firstName, lastName, login, password, roles); 
     externalName = Person; 
     fetchSpecificationDictionary = {}; 
     name = Person; 
     primaryKeyAttributes = (id); 
     relationships = (
+        {
+            destination = BlogComment; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = personID; sourceAttribute = id; }); 
+            name = blogComments; 
+        }, 
         {
             destination = BlogEntry; 
             isToMany = Y; 

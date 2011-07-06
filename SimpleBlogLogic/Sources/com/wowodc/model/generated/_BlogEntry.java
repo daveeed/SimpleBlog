@@ -21,6 +21,7 @@ public abstract class _BlogEntry extends  ERXGenericRecord {
   public static final ERXKey<NSTimestamp> TIMESTAMP_CREATION = new ERXKey<NSTimestamp>("timestampCreation");
   public static final ERXKey<String> TITLE = new ERXKey<String>("title");
   // Relationship Keys
+  public static final ERXKey<com.wowodc.model.BlogComment> BLOG_COMMENTS = new ERXKey<com.wowodc.model.BlogComment>("blogComments");
   public static final ERXKey<com.wowodc.model.BlogCategory> CATEGORIES = new ERXKey<com.wowodc.model.BlogCategory>("categories");
   public static final ERXKey<com.wowodc.model.Person> PERSON = new ERXKey<com.wowodc.model.Person>("person");
 
@@ -30,6 +31,7 @@ public abstract class _BlogEntry extends  ERXGenericRecord {
   public static final String TIMESTAMP_CREATION_KEY = TIMESTAMP_CREATION.key();
   public static final String TITLE_KEY = TITLE.key();
   // Relationships
+  public static final String BLOG_COMMENTS_KEY = BLOG_COMMENTS.key();
   public static final String CATEGORIES_KEY = CATEGORIES.key();
   public static final String PERSON_KEY = PERSON.key();
 
@@ -112,6 +114,100 @@ public abstract class _BlogEntry extends  ERXGenericRecord {
     }
   }
   
+  public NSArray<com.wowodc.model.BlogComment> blogComments() {
+    return (NSArray<com.wowodc.model.BlogComment>)storedValueForKey(_BlogEntry.BLOG_COMMENTS_KEY);
+  }
+
+  public NSArray<com.wowodc.model.BlogComment> blogComments(EOQualifier qualifier) {
+    return blogComments(qualifier, null, false);
+  }
+
+  public NSArray<com.wowodc.model.BlogComment> blogComments(EOQualifier qualifier, boolean fetch) {
+    return blogComments(qualifier, null, fetch);
+  }
+
+  public NSArray<com.wowodc.model.BlogComment> blogComments(EOQualifier qualifier, NSArray<EOSortOrdering> sortOrderings, boolean fetch) {
+    NSArray<com.wowodc.model.BlogComment> results;
+    if (fetch) {
+      EOQualifier fullQualifier;
+      EOQualifier inverseQualifier = new EOKeyValueQualifier(com.wowodc.model.BlogComment.BLOG_ENTRY_KEY, EOQualifier.QualifierOperatorEqual, this);
+    	
+      if (qualifier == null) {
+        fullQualifier = inverseQualifier;
+      }
+      else {
+        NSMutableArray<EOQualifier> qualifiers = new NSMutableArray<EOQualifier>();
+        qualifiers.addObject(qualifier);
+        qualifiers.addObject(inverseQualifier);
+        fullQualifier = new EOAndQualifier(qualifiers);
+      }
+
+      results = com.wowodc.model.BlogComment.fetchBlogComments(editingContext(), fullQualifier, sortOrderings);
+    }
+    else {
+      results = blogComments();
+      if (qualifier != null) {
+        results = (NSArray<com.wowodc.model.BlogComment>)EOQualifier.filteredArrayWithQualifier(results, qualifier);
+      }
+      if (sortOrderings != null) {
+        results = (NSArray<com.wowodc.model.BlogComment>)EOSortOrdering.sortedArrayUsingKeyOrderArray(results, sortOrderings);
+      }
+    }
+    return results;
+  }
+  
+  public void addToBlogComments(com.wowodc.model.BlogComment object) {
+    includeObjectIntoPropertyWithKey(object, _BlogEntry.BLOG_COMMENTS_KEY);
+  }
+
+  public void removeFromBlogComments(com.wowodc.model.BlogComment object) {
+    excludeObjectFromPropertyWithKey(object, _BlogEntry.BLOG_COMMENTS_KEY);
+  }
+
+  public void addToBlogCommentsRelationship(com.wowodc.model.BlogComment object) {
+    if (_BlogEntry.LOG.isDebugEnabled()) {
+      _BlogEntry.LOG.debug("adding " + object + " to blogComments relationship");
+    }
+    if (er.extensions.eof.ERXGenericRecord.InverseRelationshipUpdater.updateInverseRelationships()) {
+    	addToBlogComments(object);
+    }
+    else {
+    	addObjectToBothSidesOfRelationshipWithKey(object, _BlogEntry.BLOG_COMMENTS_KEY);
+    }
+  }
+
+  public void removeFromBlogCommentsRelationship(com.wowodc.model.BlogComment object) {
+    if (_BlogEntry.LOG.isDebugEnabled()) {
+      _BlogEntry.LOG.debug("removing " + object + " from blogComments relationship");
+    }
+    if (er.extensions.eof.ERXGenericRecord.InverseRelationshipUpdater.updateInverseRelationships()) {
+    	removeFromBlogComments(object);
+    }
+    else {
+    	removeObjectFromBothSidesOfRelationshipWithKey(object, _BlogEntry.BLOG_COMMENTS_KEY);
+    }
+  }
+
+  public com.wowodc.model.BlogComment createBlogCommentsRelationship() {
+    EOClassDescription eoClassDesc = EOClassDescription.classDescriptionForEntityName( com.wowodc.model.BlogComment.ENTITY_NAME );
+    EOEnterpriseObject eo = eoClassDesc.createInstanceWithEditingContext(editingContext(), null);
+    editingContext().insertObject(eo);
+    addObjectToBothSidesOfRelationshipWithKey(eo, _BlogEntry.BLOG_COMMENTS_KEY);
+    return (com.wowodc.model.BlogComment) eo;
+  }
+
+  public void deleteBlogCommentsRelationship(com.wowodc.model.BlogComment object) {
+    removeObjectFromBothSidesOfRelationshipWithKey(object, _BlogEntry.BLOG_COMMENTS_KEY);
+    editingContext().deleteObject(object);
+  }
+
+  public void deleteAllBlogCommentsRelationships() {
+    Enumeration<com.wowodc.model.BlogComment> objects = blogComments().immutableClone().objectEnumerator();
+    while (objects.hasMoreElements()) {
+      deleteBlogCommentsRelationship(objects.nextElement());
+    }
+  }
+
   public NSArray<com.wowodc.model.BlogCategory> categories() {
     return (NSArray<com.wowodc.model.BlogCategory>)storedValueForKey(_BlogEntry.CATEGORIES_KEY);
   }
