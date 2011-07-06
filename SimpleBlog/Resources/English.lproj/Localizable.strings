@@ -8,4 +8,7 @@
   
   "ERD2W.advancedFindButtonLabel" = "Advanced...";
   
+  "TabKey.personalInfo" = "Personal Information";
+  "SectionKey.creditCard" = "Credit Account";
+  
 }
