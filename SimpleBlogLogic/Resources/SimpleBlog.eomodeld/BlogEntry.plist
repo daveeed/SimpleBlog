@@ -13,7 +13,7 @@
     ); 
     attributesUsedForLocking = (body, id, lastModifed, personID, timestampCreation, title); 
     className = "com.wowodc.model.BlogEntry"; 
-    classProperties = (body, categories, lastModifed, person, timestampCreation, title); 
+    classProperties = (blogComments, body, categories, lastModifed, person, timestampCreation, title); 
     externalName = BlogEntry; 
     fetchSpecificationDictionary = {}; 
     name = BlogEntry; 
@@ -27,6 +27,13 @@
             joins = ({destinationAttribute = blogEntryId; sourceAttribute = id; }); 
             name = blogCategoryEntries; 
             propagatesPrimaryKey = Y; 
+        }, 
+        {
+            destination = BlogComment; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = blogEntryID; sourceAttribute = id; }); 
+            name = blogComments; 
         }, 
         {definition = "blogCategoryEntries.blogCategory"; name = categories; }, 
         {

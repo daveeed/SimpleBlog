@@ -24,7 +24,18 @@ public class SimpleBlog1 extends ERXMigrationDatabase.Migration {
     ERXJDBCUtilities.executeUpdate(database.adaptorChannel(), "INSERT INTO Role (roleDescription,id) VALUES ('Admin',1)", true);
     ERXJDBCUtilities.executeUpdate(database.adaptorChannel(), "INSERT INTO Role (roleDescription,id) VALUES ('Normal',2)", true);
 
-    ERXJDBCUtilities.executeUpdate(database.adaptorChannel(), "insert into Person (firstName, lastName, password, login, id , email) values ( 'Test', 'User', 'test', 'test',1,'dummy@test.com')", true);
+    ERXJDBCUtilities.executeUpdate(database.adaptorChannel(), "insert into Person (firstName, lastName, password, login, id , email) values ( 'Admin', 'User', 'test', 'test',1,'dummy@test.com')", true);
+    ERXJDBCUtilities.executeUpdate(database.adaptorChannel(), "insert into Person (firstName, lastName, password, login, id , email) values ( 'David', 'Holt', 'david', 'david',2,'dummy@test.com')", true);
+    ERXJDBCUtilities.executeUpdate(database.adaptorChannel(), "insert into Person (firstName, lastName, password, login, id , email) values ( 'Pascal', 'Robert', 'pascal', 'pascal',3,'dummy@test.com')", true);
+    ERXJDBCUtilities.executeUpdate(database.adaptorChannel(), "insert into Person (firstName, lastName, password, login, id , email) values ( 'Public', 'User', 'safds987007gdsfg', 'system',4,'dummy@test.com')", true);
+    
+    ERXJDBCUtilities.executeUpdate(database.adaptorChannel(), "insert into BlogCategory (id, categoryDescription, urlFriendlyDescription) values ( 1, 'WOWODC', 'wowodc')", true);
+    ERXJDBCUtilities.executeUpdate(database.adaptorChannel(), "insert into BlogCategory (id, categoryDescription, urlFriendlyDescription) values ( 2, 'WebObjects', 'webobjects')", true);
+    ERXJDBCUtilities.executeUpdate(database.adaptorChannel(), "insert into BlogCategory (id, categoryDescription, urlFriendlyDescription) values ( 3, 'DirectToWeb', 'directtoweb')", true);
+    
+    ERXJDBCUtilities.executeUpdate(database.adaptorChannel(), "insert into XPersonRole (personId, roleId) values ( 1, 1)", true);
+    ERXJDBCUtilities.executeUpdate(database.adaptorChannel(), "insert into XPersonRole (personId, roleId) values ( 2, 2)", true);
+    ERXJDBCUtilities.executeUpdate(database.adaptorChannel(), "insert into XPersonRole (personId, roleId) values ( 3, 2)", true);
 
   }
 

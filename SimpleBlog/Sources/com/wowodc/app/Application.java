@@ -1,5 +1,6 @@
 package com.wowodc.app;
 
+import com.webobjects.directtoweb.D2W;
 import com.wowodc.model.BlogCategory;
 import com.wowodc.model.BlogEntry;
 import com.wowodc.rest.controllers.BlogEntryController;
@@ -19,6 +20,7 @@ public class Application extends ERXApplication {
   public Application() {
     ERXApplication.log.info("Welcome to " + name() + " !");
     setDefaultRequestHandler(requestHandlerForKey(directActionRequestHandlerKey()));
+    D2W.setFactory(new Factory());
 
     ERXRestNameRegistry.registry().setExternalNameForInternalName("Post", BlogEntry.ENTITY_NAME);
     ERXRestNameRegistry.registry().setExternalNameForInternalName("Category", BlogCategory.ENTITY_NAME);

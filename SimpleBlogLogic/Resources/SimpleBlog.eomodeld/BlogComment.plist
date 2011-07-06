@@ -1,0 +1,70 @@
+{
+    attributes = (
+        {
+            allowsNull = N; 
+            columnName = blogEntryID; 
+            name = blogEntryID; 
+            prototypeName = id; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = commentText; 
+            name = commentText; 
+            prototypeName = varcharLarge; 
+        }, 
+        {allowsNull = N; name = id; prototypeName = id; }, 
+        {
+            allowsNull = Y; 
+            columnName = lastModifed; 
+            name = lastModifed; 
+            prototypeName = dateTime; 
+        }, 
+        {allowsNull = N; columnName = personID; name = personID; prototypeName = id; }, 
+        {
+            allowsNull = Y; 
+            columnName = rating; 
+            name = rating; 
+            prototypeName = intNumber; 
+        }, 
+        {
+            allowsNull = Y; 
+            columnName = timestampCreation; 
+            name = timestampCreation; 
+            prototypeName = dateTime; 
+        }
+    ); 
+    attributesUsedForLocking = (
+        blogEntryID, 
+        commentText, 
+        id, 
+        lastModifed, 
+        personID, 
+        rating, 
+        timestampCreation
+    ); 
+    className = "com.wowodc.model.BlogComment"; 
+    classProperties = (blogEntry, commentText, lastModifed, person, rating, timestampCreation); 
+    externalName = BlogComment; 
+    fetchSpecificationDictionary = {}; 
+    internalInfo = {"_javaClientClassName" = BlogComment; }; 
+    name = BlogComment; 
+    primaryKeyAttributes = (id); 
+    relationships = (
+        {
+            destination = BlogEntry; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = id; sourceAttribute = blogEntryID; }); 
+            name = blogEntry; 
+        }, 
+        {
+            destination = Person; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = id; sourceAttribute = personID; }); 
+            name = person; 
+        }
+    ); 
+}

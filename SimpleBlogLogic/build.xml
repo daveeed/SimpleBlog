@@ -103,5 +103,29 @@
 				</fileset>
 			</classpath>
 		</wocompile>
+		<java jar="Documentation/eomodeldoc.jar"
+		      fork="true"
+		      maxmemory="256m">
+		    <arg value="-templates" />
+		    <arg value="Documentation/EOModelDocTemplates" />
+			<arg value="-model" />
+			<arg value="Resources/SimpleBlog.eomodeld" />
+		    <arg value="-output" />
+		    <arg value="Documentation/ModelDoc" />
+		    <arg value="-modelgroup" />
+		    <arg value="." />
+		</java>
+		<java jar="Documentation/eomodeldoc.jar"
+		      fork="true"
+		      maxmemory="256m">
+		    <arg value="-templates" />
+		    <arg value="Documentation/EORuleModelDocTemplates" />
+			<arg value="-model" />
+			<arg value="Resources/SimpleBlog.eomodeld" />
+		    <arg value="-output" />
+		    <arg value="Documentation/RuleModelDoc" />
+		    <arg value="-modelgroup" />
+		    <arg value="." />
+		</java>
 	</target>
 </project>

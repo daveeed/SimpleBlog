@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>modelPaths</key>
+	<array>
+		<string>user.d2wmodel</string>
+		<string>../../../WonderFork/Frameworks/D2W/ERModernLook/Resources/d2w.d2wmodel</string>
+		<string>../../../WonderFork/Frameworks/D2W/ERModernDirectToWeb/Resources/d2w.d2wmodel</string>
+		<string>../../../WonderFork/Frameworks/D2W/ERModernDefaultSkin/Resources/d2w.d2wmodel</string>
+		<string>../../../WonderFork/Frameworks/Core/ERDirectToWeb/Resources/d2w.d2wmodel</string>
+		<string>../../../../../../Developer/WebObjects/Versions/WebObjects543/System/Library/Frameworks/JavaDirectToWeb.framework/Resources/d2w.d2wmodel</string>
+	</array>
+</dict>
+</plist>

@@ -1,17 +1,45 @@
 (
 	{
 		name = Root;
-		children = ("Blog","Category");
+		directActionClass = DirectAction;
+		directActionName = default;
+		children = "session.navigationRootChoice";
+		childrenChoices = {
+			home = (
+				Instructions,
+				Blog,
+			);
+			adminuser = (
+			Instructions,
+			Admin,
+			);
+			none = (
+				PublicBlog,
+			);
+		};
+	},
+	{
+		name = Admin;
+		children = ("GroupedList","Category","Person","Role");
+		action = "session.navController.listGroupedBlogAction";
+	},
+	{
+		name = "Instructions";
+		action = "session.navController.homeAction";
+	},
+	{
+		name = "PublicBlog";
+		action = "session.navController.listPublicBlogAction";
 	},
 	{
 		name = "Blog";
-		action = "session.navController.listBlogAction";
+		action = "session.navController.listMyBlogAction";
 		children = ("List","CreateBlog");
 	},
 	{
 		name = List;
 		// children = ("Normal","XML");
-		action = "session.navController.listBlogAction";
+		action = "session.navController.listMyBlogAction";
 	},	
 	{
 		name = Normal;
@@ -44,8 +72,8 @@
 	},
 	{
 		name = Category;
-		children = ("CreateBlogCategory","ListBlogCategory");
-		action = "session.navController.createBlogCategoryAction";
+		children = ("ListBlogCategory","CreateBlogCategory");
+		action = "session.navController.listBlogCategoryAction";
 	},
 	{
 		name = CreateBlogCategory;
@@ -54,5 +82,31 @@
 	{
 		name = ListBlogCategory;
 		action = "session.navController.listBlogCategoryAction";
+	},
+		{
+		name = Role;
+		children = ("ListRole","CreateRole");
+		action = "session.navController.listRoleAction";
+	},
+	{
+		name = CreateRole;
+		action = "session.navController.createRoleAction";
+	},
+	{
+		name = ListRole;
+		action = "session.navController.listRoleAction";
+	},
+		{
+		name = Person;
+		children = ("ListPerson","CreatePerson");
+		action = "session.navController.listPersonAction";
+	},
+	{
+		name = CreatePerson;
+		action = "session.navController.createPersonAction";
+	},
+	{
+		name = ListPerson;
+		action = "session.navController.listPersonAction";
 	},	
 )

@@ -1,0 +1,167 @@
+<html>
+<head>
+	<title>SimpleBlog, XPersonRole</title>
+	<link href = "../../eomodeldoc.css" rel = "stylesheet" type = "text/css">
+	<script src = "../../prototype.js"></script>
+	<script src = "../../eomodeldoc.js"></script>
+</head>
+<body onLoad="toggleProperty('attribute', 'nonClassProperty'); toggleProperty('relationship', 'nonClassProperty');">
+
+<div class = "section entity">
+	<h1>
+			<a href = "../content.html">SimpleBlog</a> / XPersonRole
+					<div class = "referencingEntities">
+		referenced by 
+					<a href = "../../SimpleBlog/entities/Person.html">Person</a>,					<a href = "../../SimpleBlog/entities/Role.html">Role</a>			</div>
+		</h1>
+	
+	<table class = "details">
+				<tr>
+			<th>External Name</th>
+			<td>XPersonRole</td>
+		</tr>
+		
+				<tr>
+			<th>Class Name</th>
+						<td>EOGenericRecord</td>
+					</tr>
+			</table>
+</div>
+
+<div class = "section attributes">
+	<h2>Attributes</h2>
+	<div class = "actions">
+				<a id = "attribute_details_toggle" href = "javascript:void(0)" onclick = "toggleProperty('attribute', 'details')">show details</a>
+						<a id = "attribute_nonClassProperty_toggle" href = "javascript:void(0)" onclick = "toggleProperty('attribute', 'nonClassProperty')">show non-class</a>
+							</div>
+		<ul>
+				<li class = "attribute  nonClassProperty  nonInheritedProperty  primaryKey">
+			<div class = "name"><a href="javascript:void(0)" onClick="$('personId_details').toggle();"/>personId</a> [primary key]</div>
+			
+						<table class = "details" id="personId_details" style = "display: none">
+								<tr>
+					<th>Column Name</th>
+						<td>personId
+						</td>
+				</tr>
+												<tr>
+					<th>Allows Null?</th>
+										<td>No</td>
+									</tr>
+				<tr>
+					<th>Used For Locking?</th>
+										<td>Yes</td>
+									</tr>
+																			</table>
+		</li>
+				<li class = "attribute  nonClassProperty  nonInheritedProperty  primaryKey">
+			<div class = "name"><a href="javascript:void(0)" onClick="$('roleId_details').toggle();"/>roleId</a> [primary key]</div>
+			
+						<table class = "details" id="roleId_details" style = "display: none">
+								<tr>
+					<th>Column Name</th>
+						<td>roleId
+						</td>
+				</tr>
+												<tr>
+					<th>Allows Null?</th>
+										<td>No</td>
+									</tr>
+				<tr>
+					<th>Used For Locking?</th>
+										<td>Yes</td>
+									</tr>
+																			</table>
+		</li>
+			</ul>
+	</div>
+
+<div class = "section relationships">
+	<h2>Relationships</h2>
+	<div class = "actions">
+				<a id = "relationship_details_toggle" href = "javascript:void(0)" onclick = "toggleProperty('relationship', 'details')">show details</a>
+						<a id = "relationship_nonClassProperty_toggle"href = "javascript:void(0)" onclick = "toggleProperty('relationship', 'nonClassProperty')">show non-class</a>
+							</div>
+		<ul class = "relationships">
+				<li class = "relationship  nonClassProperty  nonInheritedProperty">
+			<div class = "name"><a href="javascript:void(0)" onClick="$('person_details').toggle()"/>person</a></div>
+
+				
+			<table class = "details" id="person_details" style = "display: none">
+									<tr>
+						<th>To</th>
+						<td>
+								<a href = "../../SimpleBlog/entities/Person.html">Person</a>
+														</td>
+					</tr>
+								<tr>
+					<th>Type</th>
+					<td>
+																																	Mandatory To-One
+																		</td>
+				</tr>
+								<tr>
+					<th>Joins</th>
+					<td>
+						<table class = "joins">
+															<tr>
+									<td>personId</td>
+									<td class = "direction">&nbsp;&gt;&nbsp;</td>
+									<td>id</td>
+								</tr>
+													</table>
+					</td>
+				</tr>
+							</table>
+		</li>
+				<li class = "relationship  nonClassProperty  nonInheritedProperty">
+			<div class = "name"><a href="javascript:void(0)" onClick="$('role_details').toggle()"/>role</a></div>
+
+				
+			<table class = "details" id="role_details" style = "display: none">
+									<tr>
+						<th>To</th>
+						<td>
+								<a href = "../../SimpleBlog/entities/Role.html">Role</a>
+														</td>
+					</tr>
+								<tr>
+					<th>Type</th>
+					<td>
+																																	Mandatory To-One
+																		</td>
+				</tr>
+								<tr>
+					<th>Joins</th>
+					<td>
+						<table class = "joins">
+															<tr>
+									<td>roleId</td>
+									<td class = "direction">&nbsp;&gt;&nbsp;</td>
+									<td>id</td>
+								</tr>
+													</table>
+					</td>
+				</tr>
+							</table>
+		</li>
+			</ul>
+	</div>
+
+<div class = "section fetchSpecs">
+	<h2>Fetch Specifications</h2>
+	<div class = "actions">
+						no fetch specification
+			</div>
+	</div>
+
+<div class = "section entityIndexes">
+	<h2>Entity Indexes</h2>
+	<div class = "actions">
+					no entity indexes
+				&nbsp;
+	</div>
+	</div>
+
+</body>
+</html>

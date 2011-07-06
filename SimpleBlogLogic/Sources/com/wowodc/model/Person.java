@@ -1,14 +1,11 @@
 package com.wowodc.model;
 
-import java.util.NoSuchElementException;
-
 import org.apache.log4j.Logger;
 
 import com.webobjects.eocontrol.EOEditingContext;
 import com.webobjects.eocontrol.EOQualifier;
 import com.webobjects.foundation.NSLog;
 
-import er.extensions.eof.ERXEC;
 import er.extensions.eof.ERXEOControlUtilities;
 import er.extensions.foundation.ERXThreadStorage;
 
@@ -57,5 +54,18 @@ public class Person extends com.wowodc.model.generated._Person {
     Person user = Person.fetchRequiredPerson(editingContext, qual);
     NSLog.out.appendln("The user is " + user);
     return user;
+  }
+  
+  public void init(EOEditingContext ec) {
+    super.init(ec);
+    this.setLastName("New Person");
+    // Default Role
+    Role aRole = Role.fetchRole(ec,"roleDescription","Normal");
+    this.addObjectToBothSidesOfRelationshipWithKey(aRole, "roles");  
+  }
+ 
+  public boolean isAdmin() {
+    Role aRole = Role.fetchRole(this.editingContext(),"roleDescription","Admin");
+    return this.roles().contains(aRole);   
   }
 }

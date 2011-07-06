@@ -7,6 +7,7 @@ import com.webobjects.directtoweb.D2W;
 import com.webobjects.directtoweb.D2WPage;
 import com.webobjects.foundation.NSKeyValueCoding;
 import com.webobjects.foundation.NSMutableDictionary;
+import com.wowodc.app.Session;
 
 import er.extensions.appserver.navigation.ERXNavigationManager;
 import er.extensions.appserver.navigation.ERXNavigationState;
@@ -16,6 +17,11 @@ public class MenuHeader extends ERXComponent {
 	
     public MenuHeader(WOContext context) {
         super(context);
+    }
+    
+    // return Session casted current WOSession
+    public Session mySess() {
+      return (Session) session();
     }
     
 	// ERXModernNavigationMenu Support
@@ -50,6 +56,6 @@ public class MenuHeader extends ERXComponent {
     }
     
     public WOComponent homeAction() {
-        return D2W.factory().defaultPage(session());
+        return ((Session) session()).navController().homeAction();
     }
 }
