@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>SimpleBlog, BlogEntry</title>
+	<title>SimpleBlog, BlogComment</title>
 	<link href = "../../eomodeldoc.css" rel = "stylesheet" type = "text/css">
 	<script src = "../../prototype.js"></script>
 	<script src = "../../eomodeldoc.js"></script>
@@ -9,21 +9,21 @@
 
 <div class = "section entity">
 	<h1>
-			<a href = "../content.html">SimpleBlog</a> / BlogEntry
+			<a href = "../content.html">SimpleBlog</a> / BlogComment
 					<div class = "referencingEntities">
 		referenced by 
-					<a href = "../../SimpleBlog/entities/BlogCategoryEntry.html">BlogCategoryEntry</a>,					<a href = "../../SimpleBlog/entities/BlogComment.html">BlogComment</a>,					<a href = "../../SimpleBlog/entities/Person.html">Person</a>			</div>
+					<a href = "../../SimpleBlog/entities/BlogEntry.html">BlogEntry</a>,					<a href = "../../SimpleBlog/entities/Person.html">Person</a>			</div>
 		</h1>
 	
 	<table class = "details">
 				<tr>
 			<th>External Name</th>
-			<td>BlogEntry</td>
+			<td>BlogComment</td>
 		</tr>
 		
 				<tr>
 			<th>Class Name</th>
-						<td>com.wowodc.model.BlogEntry</td>
+						<td>com.wowodc.model.BlogComment</td>
 					</tr>
 			</table>
 </div>
@@ -35,18 +35,37 @@
 						<a id = "attribute_nonClassProperty_toggle" href = "javascript:void(0)" onclick = "toggleProperty('attribute', 'nonClassProperty')">show non-class</a>
 							</div>
 		<ul>
-				<li class = "attribute  classProperty  nonInheritedProperty ">
-			<div class = "name"><a href="javascript:void(0)" onClick="$('body_details').toggle();"/>body</a></div>
+				<li class = "attribute  nonClassProperty  nonInheritedProperty ">
+			<div class = "name"><a href="javascript:void(0)" onClick="$('blogEntryID_details').toggle();"/>blogEntryID</a></div>
 			
-						<table class = "details" id="body_details" style = "display: none">
+						<table class = "details" id="blogEntryID_details" style = "display: none">
 								<tr>
 					<th>Column Name</th>
-						<td>body
+						<td>blogEntryID
 						</td>
 				</tr>
 												<tr>
 					<th>Allows Null?</th>
 										<td>No</td>
+									</tr>
+				<tr>
+					<th>Used For Locking?</th>
+										<td>Yes</td>
+									</tr>
+																			</table>
+		</li>
+				<li class = "attribute  classProperty  nonInheritedProperty ">
+			<div class = "name"><a href="javascript:void(0)" onClick="$('commentText_details').toggle();"/>commentText</a></div>
+			
+						<table class = "details" id="commentText_details" style = "display: none">
+								<tr>
+					<th>Column Name</th>
+						<td>commentText
+						</td>
+				</tr>
+												<tr>
+					<th>Allows Null?</th>
+										<td>Yes</td>
 									</tr>
 				<tr>
 					<th>Used For Locking?</th>
@@ -79,7 +98,7 @@
 				</tr>
 												<tr>
 					<th>Allows Null?</th>
-										<td>No</td>
+										<td>Yes</td>
 									</tr>
 				<tr>
 					<th>Used For Locking?</th>
@@ -107,6 +126,25 @@
 																			</table>
 		</li>
 				<li class = "attribute  classProperty  nonInheritedProperty ">
+			<div class = "name"><a href="javascript:void(0)" onClick="$('rating_details').toggle();"/>rating</a></div>
+			
+						<table class = "details" id="rating_details" style = "display: none">
+								<tr>
+					<th>Column Name</th>
+						<td>rating
+						</td>
+				</tr>
+												<tr>
+					<th>Allows Null?</th>
+										<td>Yes</td>
+									</tr>
+				<tr>
+					<th>Used For Locking?</th>
+										<td>Yes</td>
+									</tr>
+																			</table>
+		</li>
+				<li class = "attribute  classProperty  nonInheritedProperty ">
 			<div class = "name"><a href="javascript:void(0)" onClick="$('timestampCreation_details').toggle();"/>timestampCreation</a></div>
 			
 						<table class = "details" id="timestampCreation_details" style = "display: none">
@@ -117,26 +155,7 @@
 				</tr>
 												<tr>
 					<th>Allows Null?</th>
-										<td>No</td>
-									</tr>
-				<tr>
-					<th>Used For Locking?</th>
 										<td>Yes</td>
-									</tr>
-																			</table>
-		</li>
-				<li class = "attribute  classProperty  nonInheritedProperty ">
-			<div class = "name"><a href="javascript:void(0)" onClick="$('title_details').toggle();"/>title</a></div>
-			
-						<table class = "details" id="title_details" style = "display: none">
-								<tr>
-					<th>Column Name</th>
-						<td>title
-						</td>
-				</tr>
-												<tr>
-					<th>Allows Null?</th>
-										<td>No</td>
 									</tr>
 				<tr>
 					<th>Used For Locking?</th>
@@ -151,88 +170,36 @@
 	<h2>Relationships</h2>
 	<div class = "actions">
 				<a id = "relationship_details_toggle" href = "javascript:void(0)" onclick = "toggleProperty('relationship', 'details')">show details</a>
-						<a id = "relationship_nonClassProperty_toggle"href = "javascript:void(0)" onclick = "toggleProperty('relationship', 'nonClassProperty')">show non-class</a>
-							</div>
+									</div>
 		<ul class = "relationships">
-				<li class = "relationship  nonClassProperty  nonInheritedProperty">
-			<div class = "name"><a href="javascript:void(0)" onClick="$('blogCategoryEntries_details').toggle()"/>blogCategoryEntries</a></div>
-
-				
-			<table class = "details" id="blogCategoryEntries_details" style = "display: none">
-									<tr>
-						<th>To</th>
-						<td>
-								<a href = "../../SimpleBlog/entities/BlogCategoryEntry.html">BlogCategoryEntry</a>
-														</td>
-					</tr>
-								<tr>
-					<th>Type</th>
-					<td>
-																								To-Many
-											</td>
-				</tr>
-								<tr>
-					<th>Joins</th>
-					<td>
-						<table class = "joins">
-															<tr>
-									<td>id</td>
-									<td class = "direction">&nbsp;&gt;&nbsp;</td>
-									<td>blogEntryId</td>
-								</tr>
-													</table>
-					</td>
-				</tr>
-							</table>
-		</li>
 				<li class = "relationship  classProperty  nonInheritedProperty">
-			<div class = "name"><a href="javascript:void(0)" onClick="$('blogComments_details').toggle()"/>blogComments</a></div>
+			<div class = "name"><a href="javascript:void(0)" onClick="$('blogEntry_details').toggle()"/>blogEntry</a></div>
 
 				
-			<table class = "details" id="blogComments_details" style = "display: none">
+			<table class = "details" id="blogEntry_details" style = "display: none">
 									<tr>
 						<th>To</th>
 						<td>
-								<a href = "../../SimpleBlog/entities/BlogComment.html">BlogComment</a>
+								<a href = "../../SimpleBlog/entities/BlogEntry.html">BlogEntry</a>
 														</td>
 					</tr>
 								<tr>
 					<th>Type</th>
 					<td>
-																								To-Many
-											</td>
+																																	Mandatory To-One
+																		</td>
 				</tr>
 								<tr>
 					<th>Joins</th>
 					<td>
 						<table class = "joins">
 															<tr>
-									<td>id</td>
-									<td class = "direction">&nbsp;&gt;&nbsp;</td>
 									<td>blogEntryID</td>
+									<td class = "direction">&nbsp;&gt;&nbsp;</td>
+									<td>id</td>
 								</tr>
 													</table>
 					</td>
-				</tr>
-							</table>
-		</li>
-				<li class = "relationship  classProperty  nonInheritedProperty">
-			<div class = "name flattened"><a href="javascript:void(0)" onClick="$('categories_details').toggle()"/>categories</a></div>
-
-				
-			<table class = "details" id="categories_details" style = "display: none">
-									<tr>
-						<th>To</th>
-						<td>
-								<a href = "../../SimpleBlog/entities/BlogCategory.html">BlogCategory</a>
-																	via
-										<a href = "../../SimpleBlog/entities/BlogCategoryEntry.html">blogCategoryEntries</a>.<a href = "../../SimpleBlog/entities/BlogCategory.html">blogCategory</a>														</td>
-					</tr>
-								<tr>
-					<th>Type</th>
-					<td>
-						 Flattened 																		To-Many
-											</td>
 				</tr>
 							</table>
 		</li>

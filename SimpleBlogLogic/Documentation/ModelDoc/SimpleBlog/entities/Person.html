@@ -12,7 +12,7 @@
 			<a href = "../content.html">SimpleBlog</a> / Person
 					<div class = "referencingEntities">
 		referenced by 
-					<a href = "../../SimpleBlog/entities/BlogEntry.html">BlogEntry</a>,					<a href = "../../SimpleBlog/entities/XPersonRole.html">XPersonRole</a>			</div>
+					<a href = "../../SimpleBlog/entities/BlogComment.html">BlogComment</a>,					<a href = "../../SimpleBlog/entities/BlogEntry.html">BlogEntry</a>,					<a href = "../../SimpleBlog/entities/XPersonRole.html">XPersonRole</a>			</div>
 		</h1>
 	
 	<table class = "details">
@@ -154,6 +154,37 @@
 						<a id = "relationship_nonClassProperty_toggle"href = "javascript:void(0)" onclick = "toggleProperty('relationship', 'nonClassProperty')">show non-class</a>
 							</div>
 		<ul class = "relationships">
+				<li class = "relationship  classProperty  nonInheritedProperty">
+			<div class = "name"><a href="javascript:void(0)" onClick="$('blogComments_details').toggle()"/>blogComments</a></div>
+
+				
+			<table class = "details" id="blogComments_details" style = "display: none">
+									<tr>
+						<th>To</th>
+						<td>
+								<a href = "../../SimpleBlog/entities/BlogComment.html">BlogComment</a>
+														</td>
+					</tr>
+								<tr>
+					<th>Type</th>
+					<td>
+																								To-Many
+											</td>
+				</tr>
+								<tr>
+					<th>Joins</th>
+					<td>
+						<table class = "joins">
+															<tr>
+									<td>id</td>
+									<td class = "direction">&nbsp;&gt;&nbsp;</td>
+									<td>personID</td>
+								</tr>
+													</table>
+					</td>
+				</tr>
+							</table>
+		</li>
 				<li class = "relationship  classProperty  nonInheritedProperty">
 			<div class = "name"><a href="javascript:void(0)" onClick="$('blogEntries_details').toggle()"/>blogEntries</a></div>
 
