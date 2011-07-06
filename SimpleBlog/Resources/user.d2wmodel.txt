@@ -67,6 +67,7 @@
     100 : entity.name = 'BlogComment' => defaultSortOrdering = ("timestampCreation", "compareDescending") [com.webobjects.directtoweb.Assignment],
     100 : pageConfiguration = 'ListPublicBlogEntry' => inspectConfigurationName = "InspectPublicBlogEntry" [com.webobjects.directtoweb.Assignment],
     100 : entity.name = 'BlogEntry' => pageController = "com.wowodc.delegates.BlogEntryDelegate" [er.directtoweb.ERDDelayedObjectCreationAssignment],
+    100 : (subTask = 'group' and task = 'list') => repetitionComponentName = "ERMDGroupingListPageRepetition" [com.webobjects.directtoweb.Assignment],
     100 : (pageConfiguration = 'ListPerson' and propertyKey = 'roles') => keyWhenRelationship = "roleDescription" [com.webobjects.directtoweb.Assignment],
     100 : (entity.name = 'BlogEntry' and propertyKey = 'categories') => keyWhenRelationship = "categoryDescription" [com.webobjects.directtoweb.Assignment],
     100 : pageConfiguration = 'ListGroupCSVBlogEntry' => templateNameForGroupingListPage = "ERMODCSVGroupingListPage" [com.webobjects.directtoweb.Assignment],

@@ -1,0 +1,195 @@
+AttributeCell: WOGenericContainer {
+	align = d2wContext.justification;
+	elementName = "td";
+}
+
+AttributeDisplay: WOSwitchComponent { 
+	WOComponentName = d2wContext.componentName;
+	_componentUnroll = true;
+	_unroll = true;
+	localContext = localContext;
+	object = object;
+}
+
+AttributeRepetition: WORepetition {
+	_unroll = true;
+	item = d2wContext.propertyKey;
+	list = d2wContext.displayPropertyKeys;
+}
+
+AttributeRepetition2: WORepetition {
+	_unroll = true;
+	item = d2wContext.propertyKey;
+	list = d2wContext.displayPropertyKeys;
+}
+
+ColumnLabelRepetition: WORepetition {
+	_unroll = true;
+	item = d2wContext.propertyKey;
+	list = d2wContext.displayPropertyKeys;
+}
+
+EntityName: ERXPluralString {
+	count = displayGroup.displayedObjects.count;
+	value = d2wContext.displayNameForEntity;
+}
+
+EntityRepetition: WORepetition {
+	item = object;
+	list = sublist;
+	index = rowIndex;
+}
+
+GroupingRepetition: ERXGroupingRepetition {
+	item = object;
+	list = displayGroup.displayedObjects;
+	subListSection = sublistSection;
+	subList = sublist;
+	sectionForItem = section;
+	sectionKey = "primaryKey";
+}
+
+HasTotal: ERXNonNullConditional {
+	condition=d2wContext.totallingKeys;
+}
+
+HeaderCell: WOGenericContainer {
+	elementName = "td";
+	colspan = d2wContext.displayPropertyKeys.count;
+	align = "center";
+}
+
+IsTotallingKey: ERXListContainsItemConditional {
+	item = d2wContext.propertyKey;
+	list = d2wContext.totallingKeys;
+}
+
+ListTable: WOGenericContainer {
+	_unroll = true;
+	elementName = "table";
+	width = "100%";
+}
+
+ListTableRow: WOGenericContainer {
+	_unroll = true;
+	elementName = "tr";
+	class = objectRowClass;
+}
+
+SectionCell: WOGenericContainer {
+	colspan = colspanForNavBar;
+	elementName = "td";
+}
+
+PropertyName: WOSwitchComponent {
+	WOComponentName = d2wContext.propertyNameComponentName;
+	localContext = d2wContext;
+}
+
+SumCell: WOGenericContainer {
+	align = d2wContext.justification;
+	elementName = "td";
+}
+
+SumForSubList: WOString { 
+	value=sumForSublist;
+	numberformat=d2wContext.formatter;
+}
+debug: WOString {
+	value = d2wContext.groupingKey;
+}
+SectionDisplay: WOSwitchComponent {
+	WOComponentName = d2wContext.groupingComponentName;
+	d2wContext = d2wContext;
+	object = sublistSection;
+	sublist = sublist;
+}
+ComponentContent1: WOComponentContent {
+}
+DividingCells: WOGenericContainer {
+	colspan = d2wContext.displayPropertyKeys.count;
+	elementName = "td";
+	align = "center";
+}
+
+ObjectsRepetition: WORepetition {
+	item = d2wContext.object;
+	list = ^displayGroup.displayedObjects;
+	index = rowIndex;
+}
+
+LeftAction: WOSwitchComponent { 
+	WOComponentName = d2wContext.componentName;
+	localContext = d2wContext;
+	object = d2wContext.object;
+	displayGroup = displayGroup;
+	updateContainerID = d2wContext.updateContainerID;
+}
+
+LeftActions: WORepetition {
+	item = propertyKey;
+	list = leftActions;
+}
+
+ObjectTableHeaderRow: WOGenericContainer {
+	_unroll = true;
+	elementName = "tr";
+	class = d2wContext.classForObjectTableHeader;
+}
+
+GroupHeaderRow: WOGenericContainer {
+	_unroll = true;
+	elementName = "tr";
+	class = "HeaderRow";
+}
+
+TableHeaderSwitchComponent : WOSwitchComponent {
+	WOComponentName = d2wContext.tableHeaderComponentName;
+	displayGroup = displayGroup;
+	d2wContext = d2wContext;
+	updateContainerID = ^updateContainerID;
+}
+
+RightAction: WOSwitchComponent { 
+	WOComponentName = d2wContext.componentName;
+	localContext = d2wContext;
+	object = d2wContext.object;
+	displayGroup = displayGroup;
+}
+
+RightActions: WORepetition {
+	item = propertyKey;
+	list = rightActions;
+}
+
+SectionRepetition: ERXWORepetition {
+	list = sectionsContents;
+	item = currentSection;
+}
+
+ObjectTable : WOGenericContainer {
+	elementName = "table";
+	class = d2wContext.classForObjectTable;
+}
+EmbeddedObjectTable : WOGenericContainer {
+	elementName = "table";
+	class = d2wContext.baseClassForEmbeddedListBlock;
+}
+
+AttColumnHeader : WOGenericContainer {
+	elementName = "th";
+	class = d2wContext.classForAttributeColumn;
+}
+
+AttColumnCell : WOGenericContainer {
+	elementName = "td";
+	class = d2wContext.classForAttributeColumn;
+}
+
+HasLeftActionsConditional : WOConditional {
+	condition = hasLeftActions;
+}
+
+HasRightActionsConditional : WOConditional {
+	condition = hasRightActions;
+}

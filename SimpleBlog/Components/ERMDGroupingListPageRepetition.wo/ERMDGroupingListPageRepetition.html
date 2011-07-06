@@ -1,0 +1,68 @@
+<webobject name="ObjectTable">
+  <tr>
+    <webobject name="HasLeftActionsConditional">
+      <td>&nbsp;</td>
+    </webobject>
+    <webobject name="HeaderCell"><webobject name="EntityName" /></webobject>
+    <webobject name="HasRightActionsConditional">
+      <td>&nbsp;</td>
+    </webobject>
+  </tr>
+  <webobject name="ObjectTableHeaderRow">
+    <webobject name="HasLeftActionsConditional">
+      <th class="ActionCell LftActionCell">&nbsp;</th>
+    </webobject>
+    <webobject name="SectionRepetition">
+      <webobject name="ColumnLabelRepetition">
+        <webobject name="AttColumnHeader"> <webobject name="TableHeaderSwitchComponent" /> </webobject>
+      </webobject>
+    </webobject>
+    <webobject name="HasRightActionsConditional">
+      <th class="ActionCell RtActionCell">&nbsp;</th>
+    </webobject>
+  </webobject>
+  <webobject name="GroupingRepetition">
+    <tr class="Section">
+      <webobject name="SectionCell"> <webobject name="SectionDisplay" /> </webobject>
+    </tr>
+
+      <webobject name="EntityRepetition">
+
+          <webobject name="ListTableRow">
+            <webobject name="HasLeftActionsConditional">
+              <td class="ActionCell LftActionCell">
+                <ul class="ObjActionList LftObjActionList">
+                  <webobject name="LeftActions">
+                    <li><webobject name="LeftAction" /></li>
+                  </webobject>
+                </ul>
+              </td>
+            </webobject>
+            <webobject name="SectionRepetition">
+              <webobject name="AttributeRepetition">
+                <webobject name="AttColumnCell"><webobject name="AttributeDisplay" /></webobject>
+              </webobject>
+            </webobject>
+            <webobject name="HasRightActionsConditional">
+              <td class="ActionCell RtActionCell">
+                <ul class="ObjActionList RtObjActionList">
+                  <webobject name="RightActions">
+                    <li><webobject name="RightAction" /></li>
+                  </webobject>
+                </ul>
+              </td>
+            </webobject>
+          </webobject>
+          <webobject name="HasTotal">
+            <tr class="Summary">
+              <webobject name="AttributeRepetition2">
+                <webobject name="SumCell">
+                  <webobject name="IsTotallingKey"> <webobject name="SumForSubList" /> </webobject>
+                </webobject>
+              </webobject>
+            </tr>
+          </webobject>
+        </webobject>
+
+  </webobject>
+</webobject>
