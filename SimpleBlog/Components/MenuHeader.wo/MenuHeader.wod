@@ -6,6 +6,10 @@ HasValidSession: WOConditional {
     condition = context.hasSession;
 }
 
+LoggedInUser : WOString {
+	value = mySess.user.fullName;
+}
+
 LoginLink: WOHyperlink {
     action = logout;
     target = "_top";
