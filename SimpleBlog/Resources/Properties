@@ -1,5 +1,8 @@
 ERXRest.strictMode=true
 
+# Where is tiny_mce located?
+er.directtoweb.ERDEditHTML.tinyMceSourceFileName = tiny_mce/tiny_mce.js
+
 # OGNL
 ognl.helperFunctions=true
 ognl.inlineBindings=true
@@ -35,7 +38,7 @@ dbConnectJDBCInfoGLOBAL =
 # er.extensions.ERXSQLHelper$FrontBaseSQLHelper
 
 # H2 Connection Dictionary
-dbConnectURLGLOBAL = jdbc:h2:file:/tmp/simpleblog
+dbConnectURLGLOBAL = jdbc:h2:file:~/simpleblogH2db
 dbConnectPluginGLOBAL = H2PlugIn
 
 # Migrations
@@ -91,6 +94,16 @@ er.extensions.ERXNSLogLog4jBridge=INFO
 log4j.logger.er.extensions.ERXDatabaseContextDelegate=WARN
 log4j.logger.er.extensions.ERXConfigurationManager=INFO
 #log4j.logger.er.extensions.ERXApplication.RequestHandling=DEBUG
+
+# Localization
+er.extensions.ERXLocalizer.defaultLanguage=English
+#er.extensions.ERXLocalizer.fileNamesToWatch=("Localizable.strings")
+#er.extensions.ERXLocalizer.fileNamesToWatch=("Localizable.strings","ValidationTemplate.strings")
+#er.extensions.ERXLocalizer.availableLanguages=(English,French,Spanish)
+#er.extensions.ERXLocalizer.frameworkSearchPath=(app,ERDirectToWeb,ERExtensions)
+
+# Project Encoding
+er.extensions.ERXApplication.DefaultEncoding=UTF-8
 
 #ERXNavigation
 
