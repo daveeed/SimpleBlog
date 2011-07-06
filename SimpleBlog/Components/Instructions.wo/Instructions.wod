@@ -1,0 +1,5 @@
+PageWrapper: WOSwitchComponent {
+	WOComponentName = d2wContext.pageWrapperName;
+	_componentUnroll = true;
+	_unroll = true;
+}
