@@ -1,16 +1,11 @@
 /* Enter custom rules for CSS required by your application here */
 
-<<<<<<< HEAD
-.CategoriesAttrVal input {
-=======
-div.rating_container  {  
+div.rating_container {
 	display: inline;
 }
 
-
 .CategoriesAttrVal input,
 .RolesAttrVal input {
->>>>>>> 57215aa45d0282c236ac29815ec0a497cfab7a81
 	width: 40px;
 }
 
@@ -25,10 +20,10 @@ div.rating_container  {
 	margin-bottom: 0;
 }
 
-<<<<<<< HEAD
 .BodyAttrVal {
 	padding: 10px 10px 10px 235px;
-=======
+}
+
 /* css for ERDControllerButton for ModernLook */
 
 .ERXJSFlyOver span {
@@ -89,8 +84,7 @@ div.Instructions {
 	font-size: medium;
 }
 
-td.BodyAttrColumn ul{
+td.BodyAttrColumn ul {
 	margin-left: 15px;
 	list-style-position: outside;
->>>>>>> 57215aa45d0282c236ac29815ec0a497cfab7a81
 }
