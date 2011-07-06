@@ -5,7 +5,6 @@ import java.util.NoSuchElementException;
 import com.webobjects.appserver.WOActionResults;
 import com.webobjects.appserver.WOComponent;
 import com.webobjects.appserver.WORequest;
-import com.webobjects.eocontrol.EOQualifier;
 import com.webobjects.foundation.NSLog;
 import com.wowodc.model.Person;
 import com.wowodc.ui.components.Main;
@@ -33,6 +32,9 @@ public class DirectAction extends ERD2WDirectAction {
    * @return
    */
   protected boolean allowPageConfiguration(String pageConfiguration) {
+    if(pageConfiguration.equals("ListPublicBlogEntry")) {
+      return true;
+    }
     return false;
   }
 
@@ -50,7 +52,11 @@ public class DirectAction extends ERD2WDirectAction {
       try {
         Person user = Person.validateLogin(ERXEC.newEditingContext(), username, password);
         ((Session) session()).setUser(user);
-        nextPage = ((Session) session()).navController().listBlogAction();
+        if(user.isAdmin()) {
+          nextPage = ((Session) session()).navController().listGroupedBlogAction();
+        } else {
+          nextPage = ((Session) session()).navController().homeAction();
+        }
       }
       catch (NoSuchElementException e) {
         errorMessage = "No user found for that combination of username and password.";
