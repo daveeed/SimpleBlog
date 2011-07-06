@@ -47,4 +47,15 @@ public class Session extends ERXSession {
     ERXThreadStorage.takeValueForKey(null, "user");
     super.sleep();
   }
+
+  public String navigationRootChoice() { 
+    Person user = (Person) user();
+    if(user != null ) {
+      if(user.isAdmin()==true) {
+        return "adminuser";
+      }
+      return "home";
+    }
+    return "none";
+  }
 }
