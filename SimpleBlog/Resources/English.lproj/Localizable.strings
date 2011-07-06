@@ -1,4 +1,5 @@
 {
+  "Nav.GroupedList" = "Grouped List of Blog Entries";
   "Nav.Blog" = "Blog";
   "Nav.ListBlog" = "List Blog Entries";
   "Nav.CreateBlog" = "Create Blog Entry";
@@ -9,5 +10,9 @@
   "ERD2W.advancedFindButtonLabel" = "Advanced...";
   "PropertyKey.person.firstName" = "";
   "PropertyKey.person.lastName" = "";
+  
+  "Button._comment" = "• Make Comment";
+  "Pages.ListGroupBlogEntry" = "Grouped List of Blog Entries";
+  "Pages.ListMyBlogEntry" = "List @@session.user.fullName@@'s Blog Entries";
   
 }
