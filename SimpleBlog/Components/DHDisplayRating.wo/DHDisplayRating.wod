@@ -1,0 +1,6 @@
+Rating : CCRating {
+	rated = true;
+	value = value;
+	max = 5;
+	min = 1;
+}
