@@ -4,11 +4,14 @@ import com.webobjects.appserver.WOComponent;
 import com.webobjects.directtoweb.D2W;
 import com.webobjects.directtoweb.EditPageInterface;
 import com.webobjects.directtoweb.ErrorPageInterface;
+import com.webobjects.directtoweb.InspectPageInterface;
 import com.webobjects.directtoweb.ListPageInterface;
 import com.webobjects.directtoweb.QueryPageInterface;
 import com.webobjects.eoaccess.EODatabaseDataSource;
 import com.webobjects.eocontrol.EODataSource;
 import com.webobjects.eocontrol.EOEditingContext;
+import com.webobjects.eocontrol.EOEnterpriseObject;
+import com.wowodc.model.BlogComment;
 
 import er.extensions.eof.ERXEC;
 
@@ -17,6 +20,9 @@ public class MainNavigationController {
   private Session _session;
   public String BLOGENTRY = "BlogEntry";
   public String BLOGCATEGORY = "BlogCategory";
+  public String BLOGCOMMENT = "BlogComment";
+  public String PERSON = "Person";
+  public String ROLE = "Role";
 
   public MainNavigationController(Session s) {
     super();
@@ -26,13 +32,33 @@ public class MainNavigationController {
   // NAV ACTIONS
 
   public WOComponent homeAction() {
-    return D2W.factory().defaultPage(session());
+    return D2W.factory().pageForConfigurationNamed("Instructions", session());
   }
 
   // BLOG ENTRY ACTIONS
 
   public WOComponent listBlogAction() {
     return listPageForEntityNamed(BLOGENTRY);
+  }
+  
+  public WOComponent listMyBlogAction() {
+    ListPageInterface lpi = (ListPageInterface) D2W.factory().pageForConfigurationNamed("ListMyBlogEntry", session());
+    ERXEC ec = (ERXEC) (session()._user.editingContext());
+    EODataSource ds = new EODatabaseDataSource(ec, "BlogEntry");
+    // limit the blog entries returned to the logged in user
+    ds.qualifyWithRelationshipKey("blogEntries", session()._user);
+    lpi.setDataSource(ds);
+    WOComponent nextPage = (WOComponent) lpi;
+    return nextPage;
+  }
+  
+  public WOComponent listPublicBlogAction() {
+    ListPageInterface lpi = (ListPageInterface) D2W.factory().pageForConfigurationNamed("ListPublicBlogEntry", session());
+    EOEditingContext ec = ERXEC.newEditingContext();
+    EODataSource ds = new EODatabaseDataSource(ec, "BlogEntry");
+    lpi.setDataSource(ds);
+    WOComponent nextPage = (WOComponent) lpi;
+    return nextPage;
   }
 
   public WOComponent listGroupedBlogAction() {
@@ -95,6 +121,11 @@ public class MainNavigationController {
     return newObjectForEntityName(BLOGENTRY);
   }
   
+  // BLOG COMMENTS
+  public WOComponent editBlogComment(BlogComment aBlogComment) {
+    return editPageForEntityName(BLOGCOMMENT, aBlogComment);
+  }
+  
   // BLOG CATEGORY
   
   public WOComponent listBlogCategoryAction() {
@@ -104,8 +135,40 @@ public class MainNavigationController {
   public WOComponent createBlogCategoryAction() {
     return newObjectForEntityName(BLOGCATEGORY);
   }
+  
+  // Person
+  
+  public WOComponent listPersonAction() {
+    return listPageForEntityNamed(PERSON);
+  }
+  
+  public WOComponent createPersonAction() {
+    return newObjectForEntityName(PERSON);
+  }
+  
+  // Role
+  
+  public WOComponent listRoleAction() {
+    return listPageForEntityNamed(ROLE);
+  }
+  
+  public WOComponent createRoleAction() {
+    return newObjectForEntityName(ROLE);
+  }
 
   // GENERIC ACTIONS
+  
+  public WOComponent inspectPageForEntityName(String entityName, EOEnterpriseObject eo) {
+    InspectPageInterface newInspectPage = D2W.factory().inspectPageForEntityNamed(entityName, session());
+    newInspectPage.setObject(eo);
+    return (WOComponent) newInspectPage;
+  }
+
+  public WOComponent editPageForEntityName(String entityName, EOEnterpriseObject eo) {
+    EditPageInterface newEditPage = D2W.factory().editPageForEntityNamed(entityName, session());
+    newEditPage.setObject(eo);
+    return (WOComponent) newEditPage;
+  }
 
   public WOComponent queryPageForEntityName(String entityName) {
     QueryPageInterface newQueryPage = D2W.factory().queryPageForEntityNamed(entityName, session());
