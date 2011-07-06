@@ -4,6 +4,16 @@ div.rating_container {
 	display: inline;
 }
 
+/* override the circles for stars in this app */
+.rating_container a {  
+    float:left;  
+    display:block;  
+    width:25px;  
+    height:25px;  
+    border:0;  
+    background-image:url(rating.png);  
+} 
+
 .CategoriesAttrVal input,
 .RolesAttrVal input {
 	width: 40px;
