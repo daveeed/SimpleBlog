@@ -34,3 +34,7 @@ DefaultSubmit : WOImageButton {
   framework = "ERExtensions";
   directActionName = "login";
 }
+
+PublicLink : WOHyperlink {
+	directActionName = "ListPublicBlogEntry";
+}
