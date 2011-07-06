@@ -1,4 +1,4 @@
-<project name="TotalViewAdminD2W" default="build" basedir=".">
+<project name="SimpleBlog" default="build" basedir=".">
 
 	<!-- Write current build and revision #s into Properties file. -->
 	<target name="updateBuildNumber">

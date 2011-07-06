@@ -26,6 +26,5 @@
 	<classpathentry kind="con" path="WOFramework/ERRest"/>
 	<classpathentry kind="con" path="WOFramework/H2PlugIn"/>
 	<classpathentry kind="con" path="WOFramework/WOOgnl"/>
-	<classpathentry kind="con" path="WOFramework/JavaWOJSPServlet"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
