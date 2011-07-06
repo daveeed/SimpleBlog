@@ -1,16 +1,87 @@
 /* Enter custom rules for CSS required by your application here */
 
+div.rating_container  {  
+	display: inline;
+}
 
 
-.CategoriesAttrVal input {
+.CategoriesAttrVal input,
+.RolesAttrVal input {
 	width: 40px;
 }
 
-.CategoriesAttrVal table td {
+.CategoriesAttrVal table td,
+.RolesAttrVal table td {
 	border: 0;
 	padding: 3px;
 }
 
-.CategoriesAttrVal table.ERXMatrixTable {
+.CategoriesAttrVal table.ERXMatrixTable,
+.RolesAttrVal table.ERXMatrixTable {
 	margin-bottom: 0;
+}
+
+/* css for ERDControllerButton for ModernLook */
+
+.ERXJSFlyOver span {
+	left: 45px;
+}
+
+.ERXJSFlyOver li {
+	display: block;
+}
+
+.ERDControllerButton {
+	display: block !important;
+}
+
+.ERDControllerButtonLinkList {
+	display: inline;
+	margin: 0px;
+	padding: 0px;
+}
+
+.ERDControllerButtonLinkList li {
+	display: inline;
+	margin: 0px;
+	padding: 0px;
+	font-family: Arial, Geneva, sans-serif;
+	font-size: 11px;
+}
+
+.ERDControllerButtonLinkList li a {
+	padding: 0px 5px;
+}
+
+/* uistyle = "flyOver" */
+
+.ERDControllerButtonFlyOverList {
+	background-color: #414B5E;
+	color: #C2C6CF;
+	border: 1px solid #333;
+	width: 120px;
+	padding: 5px;
+}
+
+.ERDControllerButtonFlyOverList a {
+	color: #CCC;
+}
+
+.ERDControllerButtonFlyOverList a:hover {
+	color: #FFF;
+	text-decoration: underline;
+}
+
+div.Instructions {
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 900px;
+	text-align: left;
+	font-size: medium;
+}
+
+td.BodyAttrColumn ul{
+	margin-left: 15px;
+	list-style-position: outside;
 }
