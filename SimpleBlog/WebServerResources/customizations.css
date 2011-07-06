@@ -1,7 +1,5 @@
 /* Enter custom rules for CSS required by your application here */
 
-
-
 .CategoriesAttrVal input {
 	width: 40px;
 }
@@ -13,4 +11,8 @@
 
 .CategoriesAttrVal table.ERXMatrixTable {
 	margin-bottom: 0;
+}
+
+.BodyAttrVal {
+	padding: 10px 10px 10px 235px;
 }
