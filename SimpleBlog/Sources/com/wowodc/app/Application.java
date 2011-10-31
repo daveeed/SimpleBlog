@@ -3,13 +3,10 @@ package com.wowodc.app;
 import com.webobjects.directtoweb.D2W;
 import com.wowodc.model.BlogCategory;
 import com.wowodc.model.BlogEntry;
-import com.wowodc.rest.controllers.BlogEntryController;
 
 import er.extensions.appserver.ERXApplication;
 import er.extensions.appserver.navigation.ERXNavigationManager;
 import er.rest.ERXRestNameRegistry;
-import er.rest.routes.ERXRoute;
-import er.rest.routes.ERXRoute.Method;
 import er.rest.routes.ERXRouteRequestHandler;
 
 public class Application extends ERXApplication {
@@ -27,11 +24,14 @@ public class Application extends ERXApplication {
 
     ERXRouteRequestHandler restRequestHandler = new ERXRouteRequestHandler();
     restRequestHandler.addDefaultRoutes(BlogCategory.ENTITY_NAME);
+    restRequestHandler.addDefaultRoutes(BlogEntry.ENTITY_NAME);
 
+    /*
     restRequestHandler.insertRoute(new ERXRoute(BlogEntry.ENTITY_NAME, "/posts", Method.Get, BlogEntryController.class, "index"));
     restRequestHandler.insertRoute(new ERXRoute(BlogEntry.ENTITY_NAME, "/posts/{title:String}", Method.Get, BlogEntryController.class, "showByTitle"));
     restRequestHandler.insertRoute(new ERXRoute(BlogEntry.ENTITY_NAME, "/posts/{title:String}", Method.Put, BlogEntryController.class, "update"));
     restRequestHandler.insertRoute(new ERXRoute(BlogEntry.ENTITY_NAME, "/posts", Method.Post, BlogEntryController.class, "create"));
+    */
     
     ERXRouteRequestHandler.register(restRequestHandler);
   }
