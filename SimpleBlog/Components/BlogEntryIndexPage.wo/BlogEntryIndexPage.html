@@ -1,8 +1,26 @@
+<div id="post_list">
 <wo:loop list="$entries" item="$entryItem">
   <div class="post">
-    <h2><wo:ERXRouteLink action="showByTitle" entityName="BlogEntry"><wo:str value="$entryItem.title" /></wo:ERXRouteLink></h2>
-    <p>Date: <wo:str value="$entryItem.timestampCreation" /></p> 
-    <p><wo:str value="$entryItem.body" /></p>
+    <h2>
+      <wo:ERXRouteLink action="show" record="$entryItem"><wo:str value="$entryItem.title" /></wo:ERXRouteLink>
+    </h2>
+    <p>Date: <wo:str value="$entryItem.timestampCreation" dateformat="%Y/%m/%d %H:%M" /></p>
+    <p><wo:str value="$entryItem.body" escapeHTML="false" /></p>
     <p>Author: <wo:str value="$entryItem.person.fullName" /></p>
   </div>
 </wo:loop>
+</div>
+<div id="categories_list">
+<ul>
+  <wo:loop list="$categories" item="$categoryItem">
+    <li><wo:ERXRouteLink action="show" record="$categoryItem"><wo:str value="$categoryItem.categoryDescription" /></wo:ERXRouteLink></li>
+  </wo:loop>
+</ul>
+</div>
+<div id="authors_list">
+<ul>
+  <wo:loop list="$authors" item="$authorItem">
+    <li><wo:ERXRouteLink action="show" record="$authorItem"><wo:str value="$authorItem.fullName" /> </wo:ERXRouteLink></li>
+  </wo:loop>
+</ul>
+</div>

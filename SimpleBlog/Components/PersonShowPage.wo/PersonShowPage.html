@@ -1,0 +1,10 @@
+<h1>Blog posts for <wo:str value="$person.fullName" /></h1>
+<ul>
+  <wo:loop list="$person.blogEntries" item="$entryItem">
+    <li>
+      <wo:ERXRouteLink action="show" record="$entryItem"><wo:str value="$entryItem.title" /></wo:ERXRouteLink>
+      <br />
+      <wo:str value="$entryItem.timestampCreation" dateformat="%Y/%m/%d %H:%M" />
+    </li>
+  </wo:loop>
+</ul>
