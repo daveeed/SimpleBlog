@@ -1,10 +1,12 @@
-<h1>Posts for <wo:str value="$blogCategory.categoryDescription" /></h1>
-<ul>
-  <wo:loop list="$postsForCategory" item="$entryItem">
-    <li>
-      <wo:ERXRouteLink action="show" record="$entryItem"><wo:str value="$entryItem.title" /></wo:ERXRouteLink>
-      <br />
-      <wo:str value="$entryItem.timestampCreation" dateformat="%Y/%m/%d %H:%M" />
-    </li>
-  </wo:loop>
-</ul>
+<wo:PublicWrapper pageTitle="$blogCategory.categoryDescription">
+  <h1>Posts for <wo:str value="$blogCategory.categoryDescription" /></h1>
+  <ul>
+    <wo:loop list="$postsForCategory" item="$entryItem">
+      <li>
+        <wo:ERXRouteLink action="show" record="$entryItem"><wo:str value="$entryItem.title" /></wo:ERXRouteLink>
+        <br />
+        <wo:str value="$entryItem.timestampCreation" dateformat="%Y/%m/%d %H:%M" />
+      </li>
+    </wo:loop>
+  </ul>
+</wo:PublicWrapper>

@@ -1,6 +1,8 @@
-<div class="post">
-  <h2><wo:str value="$blogEntry.title" /></h2>
-  <p>Date: <wo:str value="$blogEntry.timestampCreation" dateformat="%Y/%m/%d %H:%M" /></p>
-  <p><wo:str value="$blogEntry.body" escapeHTML="false" /></p>
-  <p>Author: <wo:str value="$blogEntry.person.fullName" /></p>
-</div>
+<wo:PublicWrapper pageTitle="$blogEntry.title">
+  <div class="post">
+    <h2><wo:str value="$blogEntry.title" /></h2>
+    <p>Date: <wo:str value="$blogEntry.timestampCreation" dateformat="%Y/%m/%d %H:%M" /></p>
+    <p><wo:str value="$blogEntry.body" escapeHTML="false" /></p>
+    <p>Author: <wo:str value="$blogEntry.person.fullName" /></p>
+  </div>
+</wo:PublicWrapper>
