@@ -1,5 +1,8 @@
 package com.wowodc.app;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import com.webobjects.directtoweb.D2W;
 import com.wowodc.model.BlogCategory;
 import com.wowodc.model.BlogEntry;
@@ -11,6 +14,9 @@ import er.rest.ERXRestNameRegistry;
 import er.rest.routes.ERXRouteRequestHandler;
 
 public class Application extends ERXApplication {
+  
+  public static final SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH);
+
   public static void main(String[] argv) {
     ERXApplication.main(argv, Application.class);
   }
