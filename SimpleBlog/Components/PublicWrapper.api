@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wodefinitions>
+    <wo class="PublicWrapper" wocomponentcontent="false">    <binding name="pageTitle"/>
+        <validation message="'pageTitle' is a required binding.">
+            <unbound name="pageTitle"/>
+        </validation>
+    </wo>
+</wodefinitions>
