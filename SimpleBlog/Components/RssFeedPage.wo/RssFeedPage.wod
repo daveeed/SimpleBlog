@@ -1,0 +1,19 @@
+ListingFeeds : ERXRssPage {
+  list = blogEntries;
+  item = item;
+  feedTitle = "RSS feed for this site";
+  feedDescription = "RSS feed for this site";
+  feedLanguage = "en-us";
+  feedUrl = "http://www.wocommunity.org";
+  feedCopyright = "&#x2117; &amp; &#xA9; 2009 WebObjects Community Association and presenters";
+  feedAuthor = "WebObjects Community Association";
+  feedImageUrl = "http://www.wocommunity.org/images/wo.png";
+  feedCategory = "Technology";
+  feedOwnerEmail = "info@wocommunity.org";
+  feedOwnerName = "WebObjects Community Association";
+  itemTitle = item.title;
+  itemAuthor = item.person.fullName;
+  itemGuid = linkToPost;
+  itemPubDate = item.lastModifed;
+  itemLink = linkToPost;
+}
