@@ -8,6 +8,7 @@ import com.wowodc.model.BlogCategory;
 import com.wowodc.model.BlogEntry;
 import com.wowodc.model.Person;
 import com.wowodc.rest.controllers.OtherRoutesController;
+import com.wowodc.rest.controllers.RssController;
 
 import er.extensions.appserver.ERXApplication;
 import er.extensions.appserver.navigation.ERXNavigationManager;
@@ -37,6 +38,7 @@ public class Application extends ERXApplication {
     restRequestHandler.addDefaultRoutes(Person.ENTITY_NAME);
     restRequestHandler.insertRoute(new ERXRoute("Other", "", ERXRoute.Method.Get, OtherRoutesController.class, "mainPage"));
     restRequestHandler.insertRoute(new ERXRoute("Other", "/admin", ERXRoute.Method.Get, OtherRoutesController.class, "adminPage"));
+    restRequestHandler.insertRoute(new ERXRoute("Rss", "/rsses/main", ERXRoute.Method.Get, RssController.class, "main"));
     
     ERXRouteRequestHandler.register(restRequestHandler);
     
