@@ -52,7 +52,7 @@ er.migration.createTablesIfNecessary=true
 #er.extensions.ERXWORepetition.raiseOnUnmatchedObject=true
 #er.extensions.ERXWORepetition.eoSupport=true
 
-er.component.clickToOpen=true
+er.component.clickToOpen=false
 wolips.password=my_password
 
 # ERJavaMail

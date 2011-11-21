@@ -11,6 +11,7 @@ public class BlogEntryIndexPage extends RestComponent {
   private BlogEntry entryItem;
   private BlogCategory categoryItem;
   private Person authorItem;
+  private BlogCategory entryCategory;
 
   public BlogEntryIndexPage(WOContext context) {
     super(context);
@@ -51,5 +52,13 @@ public class BlogEntryIndexPage extends RestComponent {
   public void setAuthorItem(Person authorItem) {
     this.authorItem = authorItem;
   }
+  
+  public BlogCategory entryCategory() {
+    return entryCategory;
+  }
 
+  public void setEntryCategory(BlogCategory entryCategory) {
+    this.entryCategory = entryCategory;
+  }
+  
 }
