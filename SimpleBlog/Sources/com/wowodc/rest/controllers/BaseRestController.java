@@ -1,14 +1,7 @@
 package com.wowodc.rest.controllers;
 
-import java.io.IOException;
-import java.util.NoSuchElementException;
-
-import sun.misc.BASE64Decoder;
-
 import com.webobjects.appserver.WOActionResults;
 import com.webobjects.appserver.WORequest;
-import com.webobjects.appserver.WOResponse;
-import com.wowodc.model.Person;
 
 import er.extensions.appserver.ERXHttpStatusCodes;
 import er.rest.format.ERXRestFormat;
