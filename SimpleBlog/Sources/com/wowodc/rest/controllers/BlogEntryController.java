@@ -1,17 +1,26 @@
 package com.wowodc.rest.controllers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import com.webobjects.appserver.WOActionResults;
 import com.webobjects.appserver.WORequest;
 import com.webobjects.foundation.NSArray;
 import com.wowodc.model.BlogCategory;
 import com.wowodc.model.BlogEntry;
 import com.wowodc.model.Person;
-import com.wowodc.ui.components.BlogEntryShowPage;
+import com.wowodc.model.SyncInfo;
+import com.wowodc.ui.components.BlogEntryDetailPage;
 
+import er.extensions.appserver.ERXHttpStatusCodes;
+import er.extensions.appserver.ERXResponse;
 import er.extensions.eof.ERXKeyFilter;
 import er.rest.ERXRestContext;
 
 public class BlogEntryController extends BaseRestController {
+
+  public static final SimpleDateFormat formatter = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z", Locale.ENGLISH);  // Last-Modified: Wed, 15 Nov 1995 04:58:08 GMT
 
   public BlogEntryController(WORequest request) {
     super(request);
@@ -55,18 +64,55 @@ public class BlogEntryController extends BaseRestController {
     return filter;
   }
 
+  @Override
   public WOActionResults showAction() throws Throwable {
-    String title = routeObjectForKey("title");
-    if (title == null) {
-      return errorResponse(404);
+    String ifModifiedSinceHeader = this.request().headerForKey("If-Modified-Since");
+    String ifNoneMatch = this.request().headerForKey("If-None-Match");
+    SyncInfo syncDetails = null;
+    BlogEntry post = null;
+
+    if (ifNoneMatch != null) {
+      syncDetails = SyncInfo.fetchSyncInfo(editingContext(), SyncInfo.ETAG.eq(ifNoneMatch));
+      if (syncDetails != null) {
+        return errorResponse(ERXHttpStatusCodes.NOT_MODIFIED);
+      } else {
+        post = routeObjectForKey("blogEntry");        
+      }
+    } else {
+      post = routeObjectForKey("blogEntry");
+      syncDetails = SyncInfo.fetchSyncInfo(editingContext(), SyncInfo.TOKEN.eq(post.entityName() + ":" + post.primaryKey()));
     }
-    BlogEntry post = BlogEntry.fetchRequiredBlogEntry(editingContext(), BlogEntry.TITLE_KEY, title);
+    
+    if (syncDetails != null) {
+      if (ifModifiedSinceHeader != null) {
+        java.util.Date clientDateHeader;
+        try {
+          clientDateHeader = (java.util.Date)formatter.parseObject(ifModifiedSinceHeader);
+          if ((clientDateHeader.equals(syncDetails.lastModified())) || (clientDateHeader.after(syncDetails.lastModified()))) {
+            return errorResponse(ERXHttpStatusCodes.NOT_MODIFIED);
+          } 
+        } catch (ParseException e) {
+        }
+      }
+    }
+    
+    ERXResponse response = null;
+    
     if (isHTMlFormat()) {
-      BlogEntryShowPage nextPage = (BlogEntryShowPage)pageWithName(BlogEntryShowPage.class);
+      BlogEntryDetailPage nextPage = (BlogEntryDetailPage)pageWithName(BlogEntryDetailPage.class);
       nextPage.setBlogEntry(post);
-      return nextPage;
+      nextPage.syncDetails = syncDetails;
+      response = (ERXResponse)nextPage.generateResponse();
+    } else {
+      response = (ERXResponse) response(post, filter());
     }
-    return response(post, filter());
+
+    if (syncDetails != null) {
+      response.setHeader(formatter.format(syncDetails.lastModified()), "Last-Modified");
+      response.setHeader(syncDetails.etag(), "Etag");
+    }
+    
+    return response;
   }
   
   public WOActionResults indexAction() throws Throwable {

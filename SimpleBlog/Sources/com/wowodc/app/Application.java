@@ -4,14 +4,31 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import com.webobjects.directtoweb.D2W;
+import com.webobjects.eocontrol.EOEditingContext;
+import com.webobjects.eocontrol.EOKeyGlobalID;
+import com.webobjects.eocontrol.EOObjectStoreCoordinator;
+import com.webobjects.eocontrol.EOQualifierEvaluation;
+import com.webobjects.foundation.NSArray;
+import com.webobjects.foundation.NSDictionary;
+import com.webobjects.foundation.NSLog;
+import com.webobjects.foundation.NSNotification;
+import com.webobjects.foundation.NSNotificationCenter;
+import com.webobjects.foundation.NSSelector;
+import com.webobjects.foundation.NSTimestamp;
 import com.wowodc.model.BlogCategory;
 import com.wowodc.model.BlogEntry;
 import com.wowodc.model.Person;
+import com.wowodc.model.SyncInfo;
+import com.wowodc.model.enums.SyncInfoStatus;
 import com.wowodc.rest.controllers.OtherRoutesController;
 import com.wowodc.rest.controllers.RssController;
 
 import er.extensions.appserver.ERXApplication;
 import er.extensions.appserver.navigation.ERXNavigationManager;
+import er.extensions.eof.ERXEC;
+import er.extensions.eof.ERXEnterpriseObject;
+import er.extensions.foundation.ERXArrayUtilities;
+import er.extensions.foundation.ERXRandomGUID;
 import er.rest.ERXRestNameRegistry;
 import er.rest.routes.ERXRoute;
 import er.rest.routes.ERXRouteRequestHandler;
@@ -60,4 +77,52 @@ public class Application extends ERXApplication {
     }
     return processedURL;
   }
+  
+  @Override
+  public void didFinishLaunching() {
+    super.didFinishLaunching();
+    NSSelector selector = new NSSelector("coordinateChanges", new Class[] { NSNotification.class } );
+    NSNotificationCenter.defaultCenter().addObserver( this, selector, EOObjectStoreCoordinator.ObjectsChangedInStoreNotification, EOObjectStoreCoordinator.defaultCoordinator());
+  }
+  
+  @SuppressWarnings("unchecked")
+  public void coordinateChanges(NSNotification notification) {
+    NSDictionary userInfo = (NSDictionary)notification.userInfo();
+    EOEditingContext ec = ERXEC.newEditingContext(new EOObjectStoreCoordinator());
+    ec.lock();
+
+    log.debug("Change Notification " + userInfo);
+    try {
+      NSLog.out.appendln("deleted" + (NSArray)userInfo.objectForKey("deleted"));
+      NSLog.out.appendln("inserted: " + (NSArray)userInfo.objectForKey("inserted"));
+      NSLog.out.appendln("updated: " + (NSArray)userInfo.objectForKey("updated"));
+            
+      NSArray result = ERXArrayUtilities.filteredArrayWithQualifierEvaluation((NSArray)userInfo.objectForKey("inserted"), new EOSyncEntityFilter() );
+      for ( Object id : result ) {
+        EOKeyGlobalID gid = (EOKeyGlobalID)id;  
+        ERXEnterpriseObject eo = (ERXEnterpriseObject)ec.faultForGlobalID( gid, ec);
+        
+        SyncInfo.createSyncInfo(ec, ERXRandomGUID.newGid(), new NSTimestamp(), SyncInfoStatus.INSERTED, eo.entityName() + ":" + eo.primaryKey());
+      }
+
+      ec.saveChanges();
+    }
+    finally {
+      ec.unlock();
+    }
+  }
+  
+  public class EOSyncEntityFilter implements EOQualifierEvaluation
+  {
+        public boolean evaluateWithObject(Object object) 
+        {
+          EOKeyGlobalID eokgid = (EOKeyGlobalID)object;
+            return syncEntityNames().containsObject(eokgid.entityName());
+        }
+  }
+  
+  public NSArray<String> syncEntityNames() {
+    return new NSArray<String>( BlogEntry.ENTITY_NAME );
+  }
+  
 }
