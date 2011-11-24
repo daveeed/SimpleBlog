@@ -6,8 +6,10 @@
         {className = EOGenericRecord; name = BlogCategoryEntry; }, 
         {className = "com.wowodc.model.BlogComment"; name = BlogComment; }, 
         {className = "com.wowodc.model.BlogEntry"; name = BlogEntry; }, 
+        {className = "com.wowodc.model.DelegatePKHistory"; name = DelegatePKHistory; }, 
         {className = "com.wowodc.model.Person"; name = Person; }, 
         {className = "com.wowodc.model.Role"; name = Role; }, 
+        {className = "com.wowodc.model.SyncInfo"; name = SyncInfo; }, 
         {className = EOGenericRecord; name = XPersonRole; }
     ); 
 }
