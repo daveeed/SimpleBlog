@@ -16,12 +16,14 @@ import com.wowodc.model.Person;
 import com.wowodc.model.SyncInfo;
 import com.wowodc.model.enums.SyncInfoStatus;
 import com.wowodc.ui.components.BlogEntryDetailPage;
+import com.wowodc.ui.components.BlogEntryListPage;
 
 import er.extensions.appserver.ERXHttpStatusCodes;
 import er.extensions.appserver.ERXResponse;
 import er.extensions.eof.ERXKeyFilter;
 import er.rest.ERXRestContext;
 import er.rest.format.ERXRestFormat;
+import er.rest.routes.ERXRouteResults;
 import er.rest.routes.ERXRouteUrlUtils;
 
 public class BlogEntryController extends BaseRestController {
@@ -69,71 +71,95 @@ public class BlogEntryController extends BaseRestController {
     
     return filter;
   }
+  
+  public String ifNoneMatchHeader() {
+    return this.request().headerForKey("If-None-Match");
+  }
+  
+  public NSTimestamp ifModifiedSinceHeader() {
+    String ifModifiedSinceHeader = this.request().headerForKey("If-Modified-Since");
+    if (ifModifiedSinceHeader != null) {
+      java.util.Date ifModifiedSince;
+      try {
+        ifModifiedSince = formatter.parse(ifModifiedSinceHeader);
+        return new NSTimestamp(ifModifiedSince);
+      }
+      catch (ParseException e) {
+        return null;
+      }
+    }
+    return null;
+  }
 
+  public SyncInfo syncInfoForETag() {
+    return SyncInfo.fetchSyncInfo(editingContext(), SyncInfo.ETAG.eq(ifNoneMatchHeader()));
+  }
+  
+  public SyncInfo syncInfoForLastModified() throws Throwable {
+    return SyncInfo.fetchSyncInfo(editingContext(), SyncInfo.LAST_MODIFIED.eq(ifModifiedSinceHeader()));
+  }
+  
+  public WOActionResults responseForNotModified(SyncInfo syncDetails) {
+    if (syncDetails.status() == SyncInfoStatus.DELETED) {
+      return response(ERXHttpStatusCodes.GONE);
+    } else {
+      return response(ERXHttpStatusCodes.NOT_MODIFIED);
+    }
+  }
+  
+  public boolean isDeleted(String delegatedPK) {
+    SyncInfo syncDetails = SyncInfo.fetchSyncInfo(editingContext(), SyncInfo.DELEGATED_PRIMARY_KEY_VALUE.eq(delegatedPK));
+    if (syncDetails != null) {
+      if (syncDetails.status() == SyncInfoStatus.DELETED) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  public SyncInfo delegatedPKInHistory(String delegatedPK) {
+    NSArray<DelegatePKHistory> histories = DelegatePKHistory.fetchDelegatePKHistories(editingContext(), DelegatePKHistory.DELEGATED_PRIMARY_KEY_VALUE.eq(delegatedPK), null);
+    if (histories.count() > 0) {
+      return histories.lastObject().syncInfo();
+    }
+    return null;
+  }
+  
   @Override
   public WOActionResults showAction() throws Throwable {
-    String ifModifiedSinceHeader = this.request().headerForKey("If-Modified-Since");
-    String ifNoneMatchHeader = this.request().headerForKey("If-None-Match");
     SyncInfo syncDetails = null;
     BlogEntry post = null;
     String uniqueTitle = routeObjectForKey("uniqueTitle");
 
-    if (ifNoneMatchHeader != null) {
-      syncDetails = SyncInfo.fetchSyncInfo(editingContext(), SyncInfo.ETAG.eq(ifNoneMatchHeader));
-      if (syncDetails != null) {
-        if (syncDetails.status() == SyncInfoStatus.DELETED) {
-          return response(ERXHttpStatusCodes.GONE);
-        } else {
-          return response(ERXHttpStatusCodes.NOT_MODIFIED);
-        }
-      } else {
-        post = BlogEntry.fetchBlogEntry(editingContext(), BlogEntry.UNIQUE_TITLE.eq(uniqueTitle));
-      }
-    } else if (ifModifiedSinceHeader != null) {
-      java.util.Date ifModifiedSince = formatter.parse(ifModifiedSinceHeader);
-      syncDetails = SyncInfo.fetchSyncInfo(editingContext(), SyncInfo.LAST_MODIFIED.eq(new NSTimestamp(ifModifiedSince)));
-      if (syncDetails != null) {
-        if (syncDetails.status() == SyncInfoStatus.DELETED) {
-          return response(ERXHttpStatusCodes.GONE);
-        } else {
-          return response(ERXHttpStatusCodes.NOT_MODIFIED);
-        }
-      } else {
-        post = BlogEntry.fetchBlogEntry(editingContext(), BlogEntry.UNIQUE_TITLE.eq(uniqueTitle));
-      }
+    syncDetails = syncInfoForETag();
+    if (syncDetails != null) {
+      return responseForNotModified(syncDetails);
     } else {
-      post = BlogEntry.fetchBlogEntry(editingContext(), BlogEntry.UNIQUE_TITLE.eq(uniqueTitle));
-      if (post != null) {
-        syncDetails = SyncInfo.fetchSyncInfo(editingContext(), SyncInfo.DELEGATED_PRIMARY_KEY_VALUE.eq(post.uniqueTitle()));
-        if (syncDetails != null) {
-          if (syncDetails.status() == SyncInfoStatus.DELETED) {
-            return response(ERXHttpStatusCodes.GONE);
-          }
-        }
+      syncDetails = syncInfoForLastModified();
+      if (syncDetails != null) {
+        return responseForNotModified(syncDetails);
       } else {
-        NSArray<DelegatePKHistory> histories = DelegatePKHistory.fetchDelegatePKHistories(editingContext(), DelegatePKHistory.DELEGATED_PRIMARY_KEY_VALUE.eq(uniqueTitle), null);
-        if (histories.count() > 0) {
-          syncDetails = histories.lastObject().syncInfo();
-          post = BlogEntry.fetchBlogEntry(editingContext(), BlogEntry.UNIQUE_TITLE.eq(syncDetails.delegatedPrimaryKeyValue()));
-          WORedirect redirect = new WORedirect(this.context());
-          redirect.setUrl(ERXRouteUrlUtils.actionUrlForRecord(this.context(), post, "show", ERXRestFormat.html().name(), null, false, false));
-          return redirect;
-        } else {
-          return errorResponse(ERXHttpStatusCodes.NOT_FOUND);
-        }
+        syncDetails = SyncInfo.fetchSyncInfo(editingContext(), SyncInfo.DELEGATED_PRIMARY_KEY_VALUE.eq(uniqueTitle));
+        post = BlogEntry.fetchBlogEntry(editingContext(), BlogEntry.UNIQUE_TITLE.eq(uniqueTitle));
       }
     }
     
-    if (syncDetails != null) {
-      if (ifModifiedSinceHeader != null) {
-        java.util.Date clientDateHeader;
-        try {
-          clientDateHeader = (java.util.Date)formatter.parseObject(ifModifiedSinceHeader);
-          if ((clientDateHeader.equals(syncDetails.lastModified())) || (clientDateHeader.after(syncDetails.lastModified()))) {
-            return response(ERXHttpStatusCodes.NOT_MODIFIED);
-          } 
-        } catch (ParseException e) {
+    if (post != null) {
+      if (isDeleted(post.uniqueTitle())) {
+        return response(ERXHttpStatusCodes.GONE);
+      }
+    } else {
+      syncDetails = delegatedPKInHistory(uniqueTitle);
+      if (syncDetails != null) {
+        post = BlogEntry.fetchBlogEntry(editingContext(), BlogEntry.UNIQUE_TITLE.eq(syncDetails.delegatedPrimaryKeyValue()));
+        if (post != null) {
+          WORedirect redirect = new WORedirect(this.context());
+          redirect.setUrl(ERXRouteUrlUtils.actionUrlForRecord(this.context(), post, "show", ERXRestFormat.html().name(), null, false, false));
+        } else {
+          return errorResponse(ERXHttpStatusCodes.NOT_FOUND);          
         }
+      } else {
+        return errorResponse(ERXHttpStatusCodes.NOT_FOUND);
       }
     }
     
@@ -142,7 +168,7 @@ public class BlogEntryController extends BaseRestController {
     if (isHTMlFormat()) {
       BlogEntryDetailPage nextPage = (BlogEntryDetailPage)pageWithName(BlogEntryDetailPage.class);
       nextPage.setBlogEntry(post);
-      nextPage.syncDetails = syncDetails;
+      nextPage.setSyncDetails(syncDetails);
       response = (ERXResponse)nextPage.generateResponse();
     } else {
       response = (ERXResponse) response(post, filter());
@@ -159,8 +185,36 @@ public class BlogEntryController extends BaseRestController {
   }
   
   public WOActionResults indexAction() throws Throwable {
-    NSArray<BlogEntry> entries = BlogEntry.fetchAllBlogEntries(editingContext());
-    return response(entries, filter());
+    ERXRouteResults response = null;
+
+    NSArray<SyncInfo> syncDetails = SyncInfo.fetchSyncInfos(editingContext(), SyncInfo.TOKEN.like(BlogEntry.ENTITY_NAME + ":*"), SyncInfo.LAST_MODIFIED.ascs());
+    SyncInfo moreRecentSync = syncDetails.lastObject();
+
+    if (moreRecentSync != null) {
+      if (moreRecentSync.etag().equals(ifNoneMatchHeader())) {
+        return responseForNotModified(moreRecentSync);
+      }
+
+      if (moreRecentSync.lastModified().equals(ifModifiedSinceHeader())) {
+        return responseForNotModified(moreRecentSync);
+      }
+    }
+        
+    if (isHTMlFormat()) {
+      BlogEntryListPage nextPage = (BlogEntryListPage)pageWithName(BlogEntryListPage.class);
+      nextPage.setSyncDetails(moreRecentSync);
+      return nextPage;
+    } else {
+      NSArray<BlogEntry> entries = BlogEntry.fetchAllBlogEntries(editingContext());
+      response = (ERXRouteResults) response(entries, filter());
+    }
+    
+    if (moreRecentSync != null) {
+      response.setHeaderForKey(formatter.format(moreRecentSync.lastModified()), "Last-Modified");
+      response.setHeaderForKey(moreRecentSync.etag(), "Etag");
+    }
+    
+    return response;
   }
 
   public WOActionResults showByTitleAction() throws Throwable {
