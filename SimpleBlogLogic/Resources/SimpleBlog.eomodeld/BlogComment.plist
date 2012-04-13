@@ -33,15 +33,7 @@
             prototypeName = dateTime; 
         }
     ); 
-    attributesUsedForLocking = (
-        blogEntryID, 
-        commentText, 
-        id, 
-        lastModifed, 
-        personID, 
-        rating, 
-        timestampCreation
-    ); 
+    attributesUsedForLocking = (blogEntryID, commentText, id, personID, rating); 
     className = "com.wowodc.model.BlogComment"; 
     classProperties = (blogEntry, commentText, lastModifed, person, rating, timestampCreation); 
     externalName = BlogComment; 

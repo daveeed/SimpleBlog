@@ -9,11 +9,21 @@
             name = timestampCreation; 
             prototypeName = dateTime; 
         }, 
-        {columnName = title; name = title; prototypeName = varchar255; }
+        {columnName = title; name = title; prototypeName = varchar255; }, 
+        {columnName = uniqueTitle; name = uniqueTitle; prototypeName = varchar255; }
     ); 
-    attributesUsedForLocking = (body, id, lastModifed, personID, timestampCreation, title); 
+    attributesUsedForLocking = (body, id, personID, title, uniqueTitle); 
     className = "com.wowodc.model.BlogEntry"; 
-    classProperties = (blogComments, body, categories, lastModifed, person, timestampCreation, title); 
+    classProperties = (
+        blogComments, 
+        body, 
+        categories, 
+        lastModifed, 
+        person, 
+        timestampCreation, 
+        title, 
+        uniqueTitle
+    ); 
     externalName = BlogEntry; 
     fetchSpecificationDictionary = {}; 
     name = BlogEntry; 

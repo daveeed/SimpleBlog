@@ -70,5 +70,9 @@ public class SimpleBlog0 extends ERXMigrationDatabase.Migration {
     blogEntryTable.addForeignKey("personID", "Person", "id");
     blogCategoryEntryTable.addForeignKey("blogCategoryId", "BlogCategory", "id");
     blogCategoryEntryTable.addForeignKey("blogEntryId", "BlogEntry", "id");
+    
+    personTable.addUniqueIndex("email");
+    personTable.addUniqueIndex("login");
+    blogCategoryTable.addUniqueIndex("categoryDescription");
   }
 }
