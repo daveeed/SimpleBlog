@@ -20,6 +20,7 @@ public abstract class _BlogEntry extends  ERXGenericRecord {
   public static final ERXKey<NSTimestamp> LAST_MODIFED = new ERXKey<NSTimestamp>("lastModifed");
   public static final ERXKey<NSTimestamp> TIMESTAMP_CREATION = new ERXKey<NSTimestamp>("timestampCreation");
   public static final ERXKey<String> TITLE = new ERXKey<String>("title");
+  public static final ERXKey<String> UNIQUE_TITLE = new ERXKey<String>("uniqueTitle");
   // Relationship Keys
   public static final ERXKey<com.wowodc.model.BlogComment> BLOG_COMMENTS = new ERXKey<com.wowodc.model.BlogComment>("blogComments");
   public static final ERXKey<com.wowodc.model.BlogCategory> CATEGORIES = new ERXKey<com.wowodc.model.BlogCategory>("categories");
@@ -30,6 +31,7 @@ public abstract class _BlogEntry extends  ERXGenericRecord {
   public static final String LAST_MODIFED_KEY = LAST_MODIFED.key();
   public static final String TIMESTAMP_CREATION_KEY = TIMESTAMP_CREATION.key();
   public static final String TITLE_KEY = TITLE.key();
+  public static final String UNIQUE_TITLE_KEY = UNIQUE_TITLE.key();
   // Relationships
   public static final String BLOG_COMMENTS_KEY = BLOG_COMMENTS.key();
   public static final String CATEGORIES_KEY = CATEGORIES.key();
@@ -87,6 +89,17 @@ public abstract class _BlogEntry extends  ERXGenericRecord {
     	_BlogEntry.LOG.debug( "updating title from " + title() + " to " + value);
     }
     takeStoredValueForKey(value, _BlogEntry.TITLE_KEY);
+  }
+
+  public String uniqueTitle() {
+    return (String) storedValueForKey(_BlogEntry.UNIQUE_TITLE_KEY);
+  }
+
+  public void setUniqueTitle(String value) {
+    if (_BlogEntry.LOG.isDebugEnabled()) {
+    	_BlogEntry.LOG.debug( "updating uniqueTitle from " + uniqueTitle() + " to " + value);
+    }
+    takeStoredValueForKey(value, _BlogEntry.UNIQUE_TITLE_KEY);
   }
 
   public com.wowodc.model.Person person() {
@@ -285,12 +298,14 @@ public abstract class _BlogEntry extends  ERXGenericRecord {
 , NSTimestamp lastModifed
 , NSTimestamp timestampCreation
 , String title
+, String uniqueTitle
 , com.wowodc.model.Person person) {
     com.wowodc.model.BlogEntry eo = (com.wowodc.model.BlogEntry) EOUtilities.createAndInsertInstance(editingContext, _BlogEntry.ENTITY_NAME);    
 		eo.setBody(body);
 		eo.setLastModifed(lastModifed);
 		eo.setTimestampCreation(timestampCreation);
 		eo.setTitle(title);
+		eo.setUniqueTitle(uniqueTitle);
     eo.setPersonRelationship(person);
     return eo;
   }

@@ -1,0 +1,43 @@
+{
+    attributes = (
+        {
+            allowsNull = Y; 
+            columnName = delegatedPrimaryKeyValue; 
+            name = delegatedPrimaryKeyValue; 
+            prototypeName = varchar255; 
+        }, 
+        {columnName = etag; name = etag; prototypeName = varchar255; }, 
+        {allowsNull = N; name = id; prototypeName = id; }, 
+        {columnName = lastModified; name = lastModified; prototypeName = dateTime; }, 
+        {
+            columnName = status; 
+            name = status; 
+            prototypeName = javaEnum; 
+            valueClassName = "com.wowodc.model.enums.SyncInfoStatus"; 
+        }, 
+        {columnName = token; name = token; prototypeName = varchar255; }
+    ); 
+    attributesUsedForLocking = (delegatedPrimaryKeyValue, etag, id, status, token); 
+    className = "com.wowodc.model.SyncInfo"; 
+    classProperties = (
+        delegatedPrimaryKeyValue, 
+        delegatePKHistories, 
+        etag, 
+        lastModified, 
+        status, 
+        token
+    ); 
+    externalName = SyncInfo; 
+    fetchSpecificationDictionary = {}; 
+    name = SyncInfo; 
+    primaryKeyAttributes = (id); 
+    relationships = (
+        {
+            destination = DelegatePKHistory; 
+            isToMany = Y; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = syncInfoID; sourceAttribute = id; }); 
+            name = delegatePKHistories; 
+        }
+    ); 
+}
