@@ -1,0 +1,33 @@
+{
+    attributes = (
+        {
+            columnName = delegatedPrimaryKeyValue; 
+            name = delegatedPrimaryKeyValue; 
+            prototypeName = varchar255; 
+        }, 
+        {allowsNull = N; name = id; prototypeName = id; }, 
+        {
+            allowsNull = N; 
+            columnName = syncInfoID; 
+            name = syncInfoID; 
+            prototypeName = id; 
+        }
+    ); 
+    attributesUsedForLocking = (delegatedPrimaryKeyValue, id, syncInfoID); 
+    className = "com.wowodc.model.DelegatePKHistory"; 
+    classProperties = (delegatedPrimaryKeyValue, syncInfo); 
+    externalName = DelegatePKHistory; 
+    fetchSpecificationDictionary = {}; 
+    name = DelegatePKHistory; 
+    primaryKeyAttributes = (id); 
+    relationships = (
+        {
+            destination = SyncInfo; 
+            isMandatory = Y; 
+            isToMany = N; 
+            joinSemantic = EOInnerJoin; 
+            joins = ({destinationAttribute = id; sourceAttribute = syncInfoID; }); 
+            name = syncInfo; 
+        }
+    ); 
+}

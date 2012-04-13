@@ -1,19 +1,23 @@
 package com.wowodc.ui.components;
 
 import com.webobjects.appserver.WOContext;
+import com.webobjects.appserver.WOResponse;
 import com.webobjects.foundation.NSArray;
 import com.wowodc.model.BlogCategory;
 import com.wowodc.model.BlogEntry;
 import com.wowodc.model.Person;
+import com.wowodc.model.SyncInfo;
+import com.wowodc.rest.controllers.BlogEntryController;
 
-public class BlogEntryIndexPage extends RestComponent {
+public class BlogEntryListPage extends RestComponent {
 
   private BlogEntry entryItem;
   private BlogCategory categoryItem;
   private Person authorItem;
   private BlogCategory entryCategory;
+  private SyncInfo syncDetails = null;
 
-  public BlogEntryIndexPage(WOContext context) {
+  public BlogEntryListPage(WOContext context) {
     super(context);
   }
 
@@ -59,6 +63,26 @@ public class BlogEntryIndexPage extends RestComponent {
 
   public void setEntryCategory(BlogCategory entryCategory) {
     this.entryCategory = entryCategory;
+  }
+  
+  public SyncInfo syncDetails() {
+    return syncDetails;
+  }
+  
+  public void setSyncDetails(SyncInfo syncDetails) {
+    this.syncDetails = syncDetails;
+  }
+  
+  @Override
+  public void appendToResponse(WOResponse response, WOContext context) {
+    if (syncDetails != null) {
+      response.setHeader(BlogEntryController.formatter.format(syncDetails.lastModified()), "Last-Modified");
+      response.setHeader(syncDetails.etag(), "Etag");
+    }
+
+    response.setHeader("max-age=300", "Cache-Control");
+
+    super.appendToResponse(response, context);
   }
   
 }
